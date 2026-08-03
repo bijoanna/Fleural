@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fleural — Homemade Fragrances</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global Styles & Variables */
+    :root {
+      --primary-purple: #efcffa;
+      --primary-purple-dark: #dca3ee;
+      --text-color: #1c1d1d;
+      --bg-white: #ffffff;
+      --bg-light: #fafafa;
+      --font-family: 'Libre Baskerville', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      color: var(--text-color);
+      background-color: var(--bg-white);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: var(--primary-purple);
+      color: var(--text-color);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: var(--primary-purple-dark);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 40px;
+    }
+
+    /* 1. Announcement Bar */
+    .announcement-bar {
+      background-color: var(--primary-purple);
+      text-align: center;
+      padding: 10px 15px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* 2. Header & Navigation */
+    .site-header {
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+      position: sticky;
+      top: 0;
+      background: var(--bg-white);
+      z-index: 1000;
+    }
+
+    .header-layout {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .header-icons {
+      display: flex;
+      gap: 20px;
+      font-size: 14px;
+    }
+
+    /* 3. Hero Banner */
+    .hero {
+      position: relative;
+      height: 70vh;
+      min-height: 450px;
+      background: #e3e3e3 url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: #ffffff;
+      max-width: 600px;
+      padding: 0 20px;
+    }
+
+    .hero-title {
+      font-size: 42px;
+      margin-bottom: 15px;
+      font-weight: normal;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      margin-bottom: 25px;
+      font-style: italic;
+    }
+
+    /* 4. Category Grid */
+    .categories {
+      padding: 60px 0;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 2/3;
+      background-color: #f2f2f2;
+    }
+
+    .category-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .category-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .category-card-title {
+      position: absolute;
+      bottom: 20px;
+      left: 0; right: 0;
+      text-align: center;
+      color: #ffffff;
+      font-size: 18px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    /* 5. Large Collection Banner */
+    .large-banner {
+      position: relative;
+      height: 450px;
+      background: url('https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 1;
+      color: #ffffff;
+    }
+
+    .banner-content h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    /* 6. Best Sellers Grid */
+    .best-sellers {
+      padding-bottom: 60px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+    }
+
+    .product-card {
+      text-align: center;
+    }
+
+    .product-image {
+      aspect-ratio: 2/3;
+      background: #f7f7f7;
+      margin-bottom: 15px;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-title {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* 7. Basic About Section */
+    .about-section {
+      background-color: var(--bg-light);
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .about-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .about-content h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .about-content p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* 8. Value Icons Bar */
+    .value-icons {
+      padding: 60px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .value-item h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .value-item p {
+      font-size: 13px;
+      color: #666;
+    }
+
+    /* 9. Newsletter Signup */
+    .newsletter {
+      padding: 80px 0;
+      text-align: center;
+      background-color: var(--bg-white);
+    }
+
+    .newsletter-form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      max-width: 450px;
+      margin: 20px auto 0;
+    }
+
+    .newsletter-form input[type="email"] {
+      flex: 1;
+      padding: 12px 20px;
+      border: 1px solid #ccc;
+      border-radius: 50px;
+      font-family: inherit;
+    }
+
+    /* 10. Footer */
+    .site-footer {
+      background-color: var(--primary-purple);
+      padding: 40px 0;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-layout {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .hero-title {
+        font-size: 30px;
+      }
+      .newsletter-form {
+        flex-direction: column;
+        padding: 0 20px;
+      }
+      .newsletter-form input[type="email"], .newsletter-form .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="announcement-bar">
+    Free shipping for orders over $50
+  </div>
+
+  <header class="site-header">
+    <div class="container header-layout">
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Shop</a></li>
+      </ul>
+      <div class="logo">Fleural</div>
+      <div class="header-icons">
+        <a href="#">Search</a>
+        <a href="#">Cart (0)</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Botanical Fragrances</h1>
+      <p class="hero-subtitle">Handcrafted scents inspired by nature</p>
+      <a href="#" class="btn">Explore Scents</a>
+    </div>
+  </section>
+
+  <section class="categories container">
+    <h2 class="section-header section-title">Shop by Category</h2>
+    <div class="category-grid">
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" alt="Perfumes">
+        <div class="category-card-title">Perfumes</div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" alt="Body Oils">
+        <div class="category-card-title">Body Oils</div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80" alt="Room Sprays">
+        <div class="category-card-title">Room Sprays</div>
+      </div>
+      <div class="category-card">
+        <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" alt="Gift Sets">
+        <div class="category-card-title">Gift Sets</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="large-banner">
+    <div class="hero-overlay"></div>
+    <div class="banner-content">
+      <h2>The Autumn Signature Series</h2>
+      <a href="#" class="btn">Discover the Blend</a>
+    </div>
+  </section>
+
+  <section class="best-sellers container">
+    <h2 class="section-title">Best Sellers</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Lavender & Vanilla Eau de Parfum">
+        </div>
+        <div class="product-title">Lavender & Vanilla</div>
+        <div class="product-price">$42.00</div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="Wild Rose Fragrance Oil">
+        </div>
+        <div class="product-title">Wild Rose Elixir</div>
+        <div class="product-price">$38.00</div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" alt="Sandalwood Mist">
+        </div>
+        <div class="product-title">Sandalwood Mist</div>
+        <div class="product-price">$35.00</div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" alt="Bergamot Nectar">
+        </div>
+        <div class="product-title">Bergamot Nectar</div>
+        <div class="product-price">$45.00</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <div class="about-content">
+      <h2>About Fleural</h2>
+      <p>
+        At Fleural, we believe in the art of mindful fragrance. Every scent is thoughtfully formulated using pure, botanical ingredients to bring natural elegance to your daily rituals. From our studio to your skin, our homemade fragrances celebrate clean, timeless artistry.
+      </p>
+    </div>
+  </section>
+
+  <section class="value-icons">
+    <div class="container value-grid">
+      <div class="value-item">
+        <h3>Free Shipping</h3>
+        <p>Free shipping for orders over $50</p>
+      </div>
+      <div class="value-item">
+        <h3>Natural Ingredients</h3>
+        <p>We only use locally sourced or chemical-free ingredients</p>
+      </div>
+      <div class="value-item">
+        <h3>Handcrafted</h3>
+        <p>Each formula is carefully created and lovingly handcrafted</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter container">
+    <h2>Join the Fleural Circle</h2>
+    <p>Sign up to receive updates on new scent drops, seasonal releases, and special offers.</p>
+    <form class="newsletter-form" onsubmit="event.preventDefault();">
+      <input type="email" placeholder="Enter your email" required />
+      <button type="submit" class="btn">Subscribe</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="#">Search</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Refund Policy</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Contact Information</a></li>
+      </ul>
+      <p>&copy; 2026 Fleural. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
