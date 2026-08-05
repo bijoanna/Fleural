@@ -465,8 +465,16 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       .header-layout {
-        flex-direction: column;
-        gap: 15px;
+        flex-direction: row; /* Keeps menu, logo, and icons on 1 single line */
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo img {
+        max-height: 38px !important; /* Slightly sizes down logo so everything fits comfortably on narrow phone screens */
+      }
+      .header-icons {
+        gap: 12px; /* Slightly reduces spacing between search & cart on small screens */
+        font-size: 13px;
       }
       .hero-title {
         font-size: 30px;
