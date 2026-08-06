@@ -53,16 +53,16 @@
 
     .btn {
       display: inline-block;
-      background-color: transparent; /* Makes the background clear */
-      color: #ffffff; /* White text */
+      background-color: transparent;
+      color: #ffffff;
       padding: 12px 30px;
       border-radius: 50px;
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 2px;
       font-weight: bold;
-      transition: all 0.3s ease; /* Smooth transition for hover effects */
-      border: 1px solid #ffffff; /* White outline */
+      transition: all 0.3s ease;
+      border: 1px solid #ffffff;
       cursor: pointer;
     }
 
@@ -126,10 +126,10 @@
       min-height: 450px;
       background: #e3e3e3 url('heroimage.gif') center/cover no-repeat;
       display: flex;
-      align-items: flex-end; /* Moves content down towards the bottom */
+      align-items: flex-end;
       justify-content: center;
       text-align: center;
-      padding-bottom: 50px; /* Space between text and bottom edge */
+      padding-bottom: 50px;
     }
 
     .hero-overlay {
@@ -148,16 +148,16 @@
 
     .hero-title {
       font-size: 42px;
-      margin-bottom: 5px; /* Reduced to bring subtitle closer */
+      margin-bottom: 5px;
       font-weight: normal;
-      line-height: 1.1; /* Tightens height of multi-line title text */
+      line-height: 1.1;
     }
 
     .hero-subtitle {
       font-size: 18px;
-      margin-bottom: 15px; /* Reduced space before the button */
+      margin-bottom: 15px;
       font-style: italic;
-      line-height: 1.2; /* Tightens line spacing */
+      line-height: 1.2;
     }
 
     /* 4. Category Grid */
@@ -176,6 +176,7 @@
       overflow: hidden;
       aspect-ratio: 2/3;
       background-color: #f2f2f2;
+      cursor: pointer;
     }
 
     .category-card img {
@@ -222,9 +223,10 @@
       margin-bottom: 20px;
     }
 
-    /* 6. Best Sellers Grid */
-    .best-sellers {
+    /* 6. Products Showcase Grid */
+    .products-showcase {
       padding-bottom: 60px;
+      scroll-margin-top: 100px;
     }
 
     .product-grid {
@@ -235,6 +237,11 @@
 
     .product-card {
       text-align: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-card.hidden {
+      display: none;
     }
 
     .product-image {
@@ -255,9 +262,41 @@
       margin-bottom: 5px;
     }
 
+    .product-type {
+      font-size: 13px;
+      color: #888;
+      font-style: italic;
+      margin-bottom: 5px;
+    }
+
     .product-price {
       font-size: 14px;
       color: #666;
+    }
+
+    /* Filter Controls Bar */
+    .filter-bar {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      background: none;
+      border: 1px solid #ddd;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background-color: var(--primary-purple);
+      border-color: var(--primary-purple);
     }
 
     /* 7. Basic About Section */
@@ -332,14 +371,12 @@
       font-family: inherit;
     }
 
-    /* Custom Purple Style for Newsletter Button */
     .newsletter-form .btn {
       background-color: var(--primary-purple);
       color: var(--text-color);
       border: 1px solid var(--primary-purple);
     }
 
-    /* Hover effect: darkens the purple slightly */
     .newsletter-form .btn:hover {
       background-color: var(--primary-purple-dark);
       border-color: var(--primary-purple-dark);
@@ -383,7 +420,7 @@
     .sidebar {
       position: fixed;
       top: 0;
-      left: -300px; /* Hidden off-screen by default */
+      left: -300px;
       width: 280px;
       height: 100%;
       background-color: var(--bg-white);
@@ -394,12 +431,10 @@
       box-sizing: border-box;
     }
 
-    /* 13. Active state to slide in sidebar */
     .sidebar.active {
       left: 0;
     }
 
-    /* 14. Dimmed background overlay */
     .sidebar-overlay {
       position: fixed;
       top: 0;
@@ -418,7 +453,6 @@
       visibility: visible;
     }
 
-    /* 15. Close Button inside Sidebar */
     .close-btn {
       background: none;
       border: none;
@@ -439,7 +473,6 @@
       border-bottom: 1px solid var(--primary-purple);
     }
 
-    /* 16. Sidebar Navigation Links */
     .sidebar-nav {
       list-style: none;
       padding: 0;
@@ -455,6 +488,7 @@
       color: var(--text-color);
       display: block;
       transition: color 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
     }
     
     .sidebar-nav a:hover {
@@ -465,15 +499,15 @@
     /* Responsive Design */
     @media (max-width: 768px) {
       .header-layout {
-        flex-direction: row; /* Keeps menu, logo, and icons on 1 single line */
+        flex-direction: row;
         justify-content: space-between;
         align-items: center;
       }
       .logo img {
-        max-height: 38px !important; /* Slightly sizes down logo so everything fits comfortably on narrow phone screens */
+        max-height: 38px !important;
       }
       .header-icons {
-        gap: 12px; /* Slightly reduces spacing between search & cart on small screens */
+        gap: 12px;
         font-size: 13px;
       }
       .hero-title {
@@ -492,7 +526,7 @@
 <body>
 
   <div class="announcement-bar">
-    Free shipping for orders over $35
+    Free shipping for purchases valuing over $35
   </div>
 
   <header class="site-header">
@@ -518,12 +552,13 @@
     <button class="close-btn" id="closeBtn" aria-label="Close navigation menu">&times;</button>
     <div class="sidebar-title">Menu</div>
     <ul class="sidebar-nav">
-      <li><a href="javascript:void(0)">New Arrivals</a></li>
-      <li><a href="javascript:void(0)">Bestsellers</a></li>
-      <li><a href="javascript:void(0)">Eau de Parfums</a></li>
-      <li><a href="javascript:void(0)">Eau de Toilettes</a></li>
-      <li><a href="javascript:void(0)">Purely Botanicals ᯽</a></li>
-      <li><a href="javascript:void(0)">Perfume Oil Rollers</a></li>
+      <li><a onclick="filterProducts('all')">All Products</a></li>
+      <li><a onclick="filterProducts('new-arrivals')">New Arrivals</a></li>
+      <li><a onclick="filterProducts('bestsellers')">Bestsellers</a></li>
+      <li><a onclick="filterProducts('eau-de-parfums')">Eau de Parfums</a></li>
+      <li><a onclick="filterProducts('eau-de-toilettes')">Eau de Toilettes</a></li>
+      <li><a onclick="filterProducts('purely-botanicals')">Purely Botanicals ᯽</a></li>
+      <li><a onclick="filterProducts('oil-rollers')">Perfume Oil Rollers</a></li>
     </ul>
   </aside>  
 
@@ -532,28 +567,28 @@
     <div class="hero-content">
       <h1 class="hero-title">Fresh Fragrances</h1>
       <p class="hero-subtitle">Handcrafted scents inspired by nature</p>
-      <a href="#" class="btn">Explore Scents</a>
+      <a href="#catalog" class="btn">Explore Scents</a>
     </div>
   </section>
 
   <section class="categories container">
     <h2 class="section-title">Shop by Category</h2>
     <div class="category-grid">
-      <div class="category-card">
-        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" alt="Perfumes">
-        <div class="category-card-title">Perfumes</div>
+      <div class="category-card" onclick="filterProducts('eau-de-parfums')">
+        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" alt="Eau de Parfums">
+        <div class="category-card-title">Eau de Parfums</div>
       </div>
-      <div class="category-card">
-        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" alt="Body Oils">
-        <div class="category-card-title">Body Oils</div>
+      <div class="category-card" onclick="filterProducts('eau-de-toilettes')">
+        <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" alt="Eau de Toilettes">
+        <div class="category-card-title">Eau de Toilettes</div>
       </div>
-      <div class="category-card">
-        <img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80" alt="Room Sprays">
-        <div class="category-card-title">Room Sprays</div>
+      <div class="category-card" onclick="filterProducts('oil-rollers')">
+        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" alt="Perfume Oil Rollers">
+        <div class="category-card-title">Oil Rollers</div>
       </div>
-      <div class="category-card">
-        <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" alt="Gift Sets">
-        <div class="category-card-title">Gift Sets</div>
+      <div class="category-card" onclick="filterProducts('purely-botanicals')">
+        <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" alt="Purely Botanicals">
+        <div class="category-card-title">Purely Botanicals ᯽</div>
       </div>
     </div>
   </section>
@@ -562,40 +597,103 @@
     <div class="hero-overlay"></div>
     <div class="banner-content">
       <h2>The Autumn Signature Series</h2>
-      <a href="#" class="btn">Discover the Blend</a>
+      <a href="#catalog" onclick="filterProducts('new-arrivals')" class="btn">Discover the Blend</a>
     </div>
   </section>
 
-  <section class="best-sellers container">
-    <h2 class="section-title">Best Sellers</h2>
+  <section class="products-showcase container" id="catalog">
+    <h2 class="section-title" id="catalog-heading">Our Collection</h2>
+    
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+      <button class="filter-btn" onclick="filterProducts('bestsellers')">Bestsellers</button>
+      <button class="filter-btn" onclick="filterProducts('new-arrivals')">New Arrivals</button>
+      <button class="filter-btn" onclick="filterProducts('eau-de-parfums')">Eau de Parfums</button>
+      <button class="filter-btn" onclick="filterProducts('eau-de-toilettes')">Eau de Toilettes</button>
+      <button class="filter-btn" onclick="filterProducts('oil-rollers')">Oil Rollers</button>
+      <button class="filter-btn" onclick="filterProducts('purely-botanicals')">Botanicals ᯽</button>
+    </div>
+
     <div class="product-grid">
-      <div class="product-card">
+      <div class="product-card" data-category="bestsellers eau-de-parfums">
         <div class="product-image">
           <img src="orangeblossoms.png" alt="Orange Blossom Eau de Parfum">
         </div>
         <div class="product-title">Orange Blossom</div>
+        <div class="product-type">Eau de Parfum</div>
         <div class="product-price">$24.00</div>
       </div>
-      <div class="product-card">
+
+      <div class="product-card" data-category="eau-de-parfums">
         <div class="product-image">
           <img src="chypres.png" alt="Chypre Eau de Parfum">
         </div>
         <div class="product-title">Chypre</div>
+        <div class="product-type">Eau de Parfum</div>
         <div class="product-price">$22.00</div>
       </div>
-      <div class="product-card">
+
+      <div class="product-card" data-category="bestsellers eau-de-toilettes">
         <div class="product-image">
-          <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" alt="Sandalwood Mist">
+          <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" alt="Iris Eau de Toilette">
         </div>
-        <div class="product-title">Sandalwood Mist</div>
-        <div class="product-price">$35.00</div>
+        <div class="product-title">Iris</div>
+        <div class="product-type">Eau de Toilette</div>
+        <div class="product-price">$22.00</div>
       </div>
-      <div class="product-card">
+
+      <div class="product-card" data-category="new-arrivals eau-de-toilettes">
         <div class="product-image">
-          <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" alt="Bergamot Nectar">
+          <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" alt="Vanilla Sandalwood">
         </div>
-        <div class="product-title">Bergamot Nectar</div>
-        <div class="product-price">$45.00</div>
+        <div class="product-title">Vanilla Sandalwood</div>
+        <div class="product-type">Eau de Toilette</div>
+        <div class="product-price">$25.00</div>
+      </div>
+
+      <div class="product-card" data-category="new-arrivals oil-rollers">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" alt="Fig & Honey">
+        </div>
+        <div class="product-title">Fig & Honey</div>
+        <div class="product-type">Perfume Oil Roller</div>
+        <div class="product-price">$18.00</div>
+      </div>
+
+      <div class="product-card" data-category="eau-de-parfums purely-botanicals">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80" alt="Garden Lavender">
+        </div>
+        <div class="product-title">Garden Lavender ᯽</div>
+        <div class="product-type">Eau de Parfum</div>
+        <div class="product-price">$26.00</div>
+      </div>
+
+      <div class="product-card" data-category="eau-de-toilettes purely-botanicals">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" alt="Garden Jasmine">
+        </div>
+        <div class="product-title">Garden Jasmine ᯽</div>
+        <div class="product-type">Eau de Toilette</div>
+        <div class="product-price">$24.00</div>
+      </div>
+
+      <div class="product-card" data-category="oil-rollers purely-botanicals">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=80" alt="Garden Honeysuckle">
+        </div>
+        <div class="product-title">Garden Honeysuckle ᯽</div>
+        <div class="product-type">Perfume Oil Roller</div>
+        <div class="product-price">$18.00</div>
+      </div>
+
+      <div class="product-card" data-category="oil-rollers purely-botanicals">
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Natural Rose">
+        </div>
+        <div class="product-title">Natural Rose ᯽</div>
+        <div class="product-type">Perfume Oil Roller</div>
+        <div class="product-price">$18.00</div>
       </div>
     </div>
   </section>
@@ -668,6 +766,47 @@
     menuToggle.addEventListener('click', openSidebar);
     closeBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
+
+    /* Category Filtering Functionality */
+    function filterProducts(category) {
+      closeSidebar();
+      const products = document.querySelectorAll('.product-card');
+      const catalogSection = document.getElementById('catalog');
+      const heading = document.getElementById('catalog-heading');
+
+      // Update section heading based on selection
+      const titles = {
+        'all': 'Our Collection',
+        'bestsellers': 'Best Sellers',
+        'new-arrivals': 'New Arrivals',
+        'eau-de-parfums': 'Eau de Parfums',
+        'eau-de-toilettes': 'Eau de Toilettes',
+        'purely-botanicals': 'Purely Botanicals ᯽',
+        'oil-rollers': 'Perfume Oil Rollers'
+      };
+      if (titles[category]) {
+        heading.textContent = titles[category];
+      }
+
+      // Filter product cards
+      products.forEach(product => {
+        const categories = product.getAttribute('data-category');
+        if (category === 'all' || categories.includes(category)) {
+          product.classList.remove('hidden');
+        } else {
+          product.classList.add('hidden');
+        }
+      });
+
+      // Update active filter button state
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(btn => btn.classList.remove('active'));
+
+      // Smooth scroll down to catalog when a category is selected
+      if (category !== 'all') {
+        catalogSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
   </script>
     
 </body>
