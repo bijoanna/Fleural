@@ -259,13 +259,6 @@
       margin-bottom: 5px;
     }
 
-    .product-type {
-      font-size: 13px;
-      color: #888;
-      font-style: italic;
-      margin-bottom: 5px;
-    }
-
     .product-price {
       font-size: 14px;
       color: #666;
@@ -293,31 +286,6 @@
     .back-btn:hover {
       color: var(--text-color);
       text-decoration: underline;
-    }
-
-    /* Filter Controls Bar */
-    .filter-bar {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-top: 10px;
-    }
-
-    .filter-btn {
-      background: none;
-      border: 1px solid #ddd;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-family: inherit;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .filter-btn.active, .filter-btn:hover {
-      background-color: var(--primary-purple);
-      border-color: var(--primary-purple);
     }
 
     /* Helper utility class to hide homepage sections when navigating categories */
@@ -633,23 +601,12 @@
       <h2 class="section-title" id="catalog-heading" style="margin-bottom:0;">Our Collection</h2>
     </div>
 
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="openCategoryPage('all')">All</button>
-      <button class="filter-btn" onclick="openCategoryPage('bestsellers')">Bestsellers</button>
-      <button class="filter-btn" onclick="openCategoryPage('new-arrivals')">New Arrivals</button>
-      <button class="filter-btn" onclick="openCategoryPage('eau-de-parfums')">Eau de Parfums</button>
-      <button class="filter-btn" onclick="openCategoryPage('eau-de-toilettes')">Eau de Toilettes</button>
-      <button class="filter-btn" onclick="openCategoryPage('oil-rollers')">Oil Rollers</button>
-      <button class="filter-btn" onclick="openCategoryPage('purely-botanicals')">Botanicals ᯽</button>
-    </div>
-
     <div class="product-grid" style="margin-top: 40px;">
       <div class="product-card" data-category="bestsellers eau-de-parfums">
         <div class="product-image">
           <img src="orangeblossoms.png" alt="Orange Blossom Eau de Parfum">
         </div>
         <div class="product-title">Orange Blossom</div>
-        <div class="product-type">Eau de Parfum</div>
         <div class="product-price">$24.00</div>
       </div>
 
@@ -658,7 +615,6 @@
           <img src="chypres.png" alt="Chypre Eau de Parfum">
         </div>
         <div class="product-title">Chypre</div>
-        <div class="product-type">Eau de Parfum</div>
         <div class="product-price">$22.00</div>
       </div>
 
@@ -667,7 +623,6 @@
           <img src="iris.png" alt="Iris Eau de Toilette">
         </div>
         <div class="product-title">Iris</div>
-        <div class="product-type">Eau de Toilette</div>
         <div class="product-price">$20.00</div>
       </div>
 
@@ -676,7 +631,6 @@
           <img src="vanilla.png" alt="Vanilla Sandalwood">
         </div>
         <div class="product-title">Vanilla Sandalwood</div>
-        <div class="product-type">Eau de Toilette</div>
         <div class="product-price">$22.00</div>
       </div>
 
@@ -685,7 +639,6 @@
           <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" alt="Fig & Honey">
         </div>
         <div class="product-title">Fig & Honey</div>
-        <div class="product-type">Perfume Oil Roller</div>
         <div class="product-price">$15.00</div>
       </div>
 
@@ -694,7 +647,6 @@
           <img src="lavender.png" alt="Garden Lavender">
         </div>
         <div class="product-title">Garden Lavender ᯽</div>
-        <div class="product-type">Eau de Parfum</div>
         <div class="product-price">$27.00</div>
       </div>
 
@@ -703,7 +655,6 @@
           <img src="jasmine.png" alt="Garden Jasmine">
         </div>
         <div class="product-title">Garden Jasmine ᯽</div>
-        <div class="product-type">Eau de Toilette</div>
         <div class="product-price">$29.00</div>
       </div>
 
@@ -712,7 +663,6 @@
           <img src="honeysuckle.png" alt="Garden Honeysuckle">
         </div>
         <div class="product-title">Garden Honeysuckle ᯽</div>
-        <div class="product-type">Perfume Oil Roller</div>
         <div class="product-price">$19.00</div>
       </div>
 
@@ -721,7 +671,6 @@
           <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Natural Rose">
         </div>
         <div class="product-title">Natural Rose ᯽</div>
-        <div class="product-type">Perfume Oil Roller</div>
         <div class="product-price">$17.00</div>
       </div>
     </div>
@@ -800,7 +749,6 @@
     function openCategoryPage(category) {
       closeSidebar();
 
-      // If 'all' is chosen, render the full homepage
       if (category === 'all') {
         showHomePage();
         return;
@@ -816,7 +764,7 @@
       // Filter products
       filterProducts(category);
 
-      // Scroll to top of catalog
+      // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -864,10 +812,6 @@
           product.classList.add('hidden');
         }
       });
-
-      // Highlight active button state
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      filterBtns.forEach(btn => btn.classList.remove('active'));
     }
   </script>
     
