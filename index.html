@@ -447,6 +447,7 @@
       font-size: 15px;
       color: #555;
       line-height: 1.7;
+      white-space: pre-line;
     }
 
     .accordion-item.active .accordion-content {
@@ -871,7 +872,7 @@
         <div class="size-selector-container">
           <div class="size-selector-label">Select Size</div>
           <div class="size-boxes" id="pdSizeBoxes">
-            </div>
+          </div>
         </div>
 
         <button class="pd-add-to-cart">Add to Cart</button>
@@ -882,7 +883,7 @@
               Ingredients <span>+</span>
             </button>
             <div class="accordion-content" id="pdIngredients">
-              Type your ingredients list here (e.g., Organic Sugar Cane Alcohol, Fragrance/Parfum, Botanical Extracts, Essential Oils).
+              Type your ingredients list here.
             </div>
           </div>
 
@@ -891,7 +892,7 @@
               Shipping <span>+</span>
             </button>
             <div class="accordion-content" id="pdShipping">
-              Orders are handcrafted and processed within 2–4 business days. Standard shipping options are available at checkout, with free shipping on orders over $35.
+              Orders are handcrafted and processed within 2–4 business days.
             </div>
           </div>
 
@@ -900,7 +901,7 @@
               Directions <span>+</span>
             </button>
             <div class="accordion-content" id="pdDirections">
-              Apply to pulse points such as wrists, neck, and inner elbows. Store in a cool, dry place away from direct sunlight for maximum preservation of delicate scent notes.
+              Apply to pulse points such as wrists, neck, and inner elbows.
             </div>
           </div>
         </div>
@@ -977,128 +978,141 @@
     closeBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
 
-    /* Product Database */
+    /* Product Database using backticks for safe multi-line text */
     const productData = {
       'orange-blossom': {
         title: 'Orange Blossom',
         category: 'Eau de Parfum',
         image: 'orangeblossoms.png',
-        description: 'A bright olfactory portrait of an orange grove in peak bloom. Opening with a sparkling splash of sweet orange and crisp petitgrain, this fragrance unveils a lush, creamy heart of radiant orange blossom, jasmine, and soft rose accents. As it rests on the skin, warm ambroxan, woods, and golden benzoin ground the floral bouquet in lasting, sun drenched warmth.',
-        type: 'spray', // EDP/EDT get 3 sizes
-        basePrice: 24.00, // 15mL price
+        description: `A bright olfactory portrait of an orange grove in peak bloom. Opening with a sparkling splash of sweet orange and crisp petitgrain, this fragrance unveils a lush, creamy heart of radiant orange blossom, jasmine, and soft rose accents. As it rests on the skin, warm ambroxan, woods, and golden benzoin ground the floral bouquet in lasting, sun drenched warmth.`,
+        type: 'spray',
+        basePrice: 24.00,
         prices: { '2mL': '$5.00', '15mL': '$24.00', '50mL': '$52.00' },
-        ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua (Water), Linalool, Linalyl Acetate, Citrus Aurantium Dulcis (Orange) Peel Oil, Citrus Aurantium Amara (Bitter Orange) Leaf/Twig Oil, Farnesol, Geraniol, Citronellol, Eugenol, Benzyl Benzoate, Limonene.',
-        shipping: 'Standard shipping is $7.99 and free for purchases over $35',
-        directions: 'FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.'
+        ingredients: `Alcohol Denat., Parfum (Fragrance), Aqua (Water), Linalool, Linalyl Acetate, Citrus Aurantium Dulcis (Orange) Peel Oil, Citrus Aurantium Amara (Bitter Orange) Leaf/Twig Oil, Farnesol, Geraniol, Citronellol, Eugenol, Benzyl Benzoate, Limonene.`,
+        shipping: `Standard shipping is $7.99 and free for purchases over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.`
       },
       'chypre': {
         title: 'Chypre',
         category: 'Eau de Parfum',
         image: 'chypres.png',
-        description: 'Chypre (French for Cyprus) is one of the great perfume families, codified by François Coty's Chypre in 1917, with this homecrafted rendition offering a modern, velvety touch. This elegant fragrance opens with a brilliant, sparkling burst of Earl Grey-like bergamot before unfolding into a romantic heart of dark rose and indolic jasmine. As it dries down, rich aged patchouli, smoky vetiver, and golden labdanum rest on a bed of dry oakmoss and radiant amber, creating a deeply mysterious, forest-inspired trail that lingers delicately.',
+        description: `Chypre (French for Cyprus) is one of the great perfume families, codified by François Coty in 1917, with this homecrafted rendition offering a modern, velvety touch. This elegant fragrance opens with a brilliant, sparkling burst of Earl Grey-like bergamot before unfolding into a romantic heart of dark rose and indolic jasmine. As it dries down, rich aged patchouli, smoky vetiver, and golden labdanum rest on a bed of dry oakmoss and radiant amber, creating a deeply mysterious, forest-inspired trail that lingers delicately.`,
         type: 'spray',
         basePrice: 22.00,
         prices: { '2mL': '$4.00', '15mL': '$22.00', '50mL': '$48.00' },
-        ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Citrus Bergamia (Bergamot) Peel Oil Expressed, Pogostemon Cablin (Patchouli) Leaf Oil, Vetiveria Zizanoides (Vetiver) Root Oil, Cistus Ladaniferus (Labdanum) Resin, Citral, Geraniol, Citronellol, Eugenol, Benzyl Benzoate.',
-        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
-        directions: 'FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.'
+        ingredients: `Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Citrus Bergamia (Bergamot) Peel Oil Expressed, Pogostemon Cablin (Patchouli) Leaf Oil, Vetiveria Zizanoides (Vetiver) Root Oil, Cistus Ladaniferus (Labdanum) Resin, Citral, Geraniol, Citronellol, Eugenol, Benzyl Benzoate.`,
+        shipping: `Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.`
       },
       'iris': {
         title: 'Iris',
         category: 'Eau de Toilette',
         image: 'iris.png',
-        description: 'Opening with a crisp, cool splash of bergamot and fresh green iris, this fragrance unveils a luxurious heart of velvety ionones, sweet violet, and buttery orris root. As it dries down, it reveals a bed of earthy vetiver and radiant amber, creating a refined, suede-like trail that feels effortlessly sophisticated.',
+        description: `Opening with a crisp, cool splash of bergamot and fresh green iris, this fragrance unveils a luxurious heart of velvety ionones, sweet violet, and buttery orris root. As it dries down, it reveals a bed of earthy vetiver and radiant amber, creating a refined, suede-like trail that feels effortlessly sophisticated.`,
         type: 'spray',
         basePrice: 20.00,
         prices: { '2mL': '$4.00', '15mL': '$20.00', '50mL': '$46.00' },
-        ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Alpha-Isomethyl Ionone, Juniperus Virginiana (Cedarwood) Oil, Citrus Bergamia (Bergamot) Peel Oil Expressed, Citral, Geraniol.',
-        shipping: 'Standard shipping is $7.99 and free for purchases over $35',
-        directions: 'FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.'
+        ingredients: `Alcohol Denat., Parfum (Fragrance), Aqua (Water), Limonene, Linalool, Alpha-Isomethyl Ionone, Juniperus Virginiana (Cedarwood) Oil, Citrus Bergamia (Bergamot) Peel Oil Expressed, Citral, Geraniol.`,
+        shipping: `Standard shipping is $7.99 and free for purchases over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.`
       },
       'vanilla-sandalwood': {
         title: 'Vanilla Sandalwood',
         category: 'Eau de Toilette',
         image: 'vanilla.png',
-        description: 'An irresistible blend of rich gourmand warmth and creamy, velvety woods. Opening with a gentle whiff of warm cardamom and soft fig, this fragrance unfolds into a luxurious heart of creamy Australian sandalwood and smooth cashmere. As it settles onto the skin, a lingering brush of warm vanilla absolute, golden benzoin, and rich musks leaves a soft, pleasing trail.',
+        description: `An irresistible blend of rich gourmand warmth and creamy, velvety woods. Opening with a gentle whiff of warm cardamom and soft fig, this fragrance unfolds into a luxurious heart of creamy Australian sandalwood and smooth cashmere. As it settles onto the skin, a lingering brush of warm vanilla absolute, golden benzoin, and rich musks leaves a soft, pleasing trail.`,
         type: 'spray',
         basePrice: 22.00,
         prices: { '2mL': '$4.00', '15mL': '$22.00', '50mL': '$48.00' },
-        ingredients: 'Alcohol Denat., Parfum (Fragrance), Aqua (Water), Santalum Spicata (Sandalwood) Wood Oil, Elettaria Cardamomum (Cardamom) Seed Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Vanilla Planifolia Fruit Extract, Linalool, Limonene, Geraniol, Citral.',
-        shipping: 'Standard shipping is $7.99 and free for purchases over $35',
-        directions: 'FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.'
+        ingredients: `Alcohol Denat., Parfum (Fragrance), Aqua (Water), Santalum Spicata (Sandalwood) Wood Oil, Elettaria Cardamomum (Cardamom) Seed Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Vanilla Planifolia Fruit Extract, Linalool, Limonene, Geraniol, Citral.`,
+        shipping: `Standard shipping is $7.99 and free for purchases over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.`
       },
       'fig-honey': {
         title: 'Fig & Honey',
         category: 'Perfume Oil Roller',
         image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80',
-        description: 'Opening with the crisp snap of wild fig leaves, this silky perfume oil unveils a decadent heart of creamy coconut-fig sap dripping with rich, raw honey nectar. As it warms against the skin, a smooth base of fresh woods and warm vanilla leaves a lingering, intoxicating trail.',
-        type: 'roller', // Rollers get 1 size (10mL)
+        description: `Opening with the crisp snap of wild fig leaves, this silky perfume oil unveils a decadent heart of creamy coconut-fig sap dripping with rich, raw honey nectar. As it warms against the skin, a smooth base of fresh woods and warm vanilla leaves a lingering, intoxicating trail.`,
+        type: 'roller',
         basePrice: 15.00,
         prices: { '10mL': '$15.00' },
-        ingredients: 'Simmondsia Chinensis (Jojoba) Seed Oil, Caprylic/Capric Triglyceride, Parfum (Fragrance), Tocopherol (Vitamin E), Benzyl Alcohol, Coumarin, Limonene, Linalool.',
-        shipping: 'Standard shipping is $7.99 and free for purchases over $35',
-        directions: 'FOR EXTERNAL USE ONLY. Glide the rollerball gently over pulse points, such as the wrists, neck, and behind the ears. Allow the oil to absorb naturally into the skin. Reapply throughout the day as desired for a soft, hydrating fragrance experience. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not apply near eyes or to broken skin. Keep out of reach of children.'
+        ingredients: `Simmondsia Chinensis (Jojoba) Seed Oil, Caprylic/Capric Triglyceride, Parfum (Fragrance), Tocopherol (Vitamin E), Benzyl Alcohol, Coumarin, Limonene, Linalool.`,
+        shipping: `Standard shipping is $7.99 and free for purchases over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Glide the rollerball gently over pulse points, such as the wrists, neck, and behind the ears. Allow the oil to absorb naturally into the skin. Reapply throughout the day as desired for a soft, hydrating fragrance experience. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not apply near eyes or to broken skin. Keep out of reach of children.`
       },
       'garden-lavender': {
         title: 'Garden Lavender ᯽',
         category: 'Purely Botanical Eau de Parfum',
         image: 'lavender.png',
-        description: 'Made with hand-harvested garden lavender, this 100% botanical fragrance opens with a bright splash of sun-warmed bergamot and fresh lavender. As it unfolds, a lush, herbaceous heart of clary sage and rich lavender absolute rests gently on a comforting base of sweet vanilla, warm tonka bean, and velvety sandalwood.',
+        description: `Made with hand-harvested garden lavender, this 100% botanical fragrance opens with a bright splash of sun-warmed bergamot and fresh lavender. As it unfolds, a lush, herbaceous heart of clary sage and rich lavender absolute rests gently on a comforting base of sweet vanilla, warm tonka bean, and velvety sandalwood.`,
         type: 'spray',
         basePrice: 27.00,
         prices: { '2mL': '$6.00', '15mL': '$27.00', '50mL': '$58.00' },
-        ingredients: 'Alcohol Denat. (Infused with Lavandula Angustifolia), Parfum (Fragrance)*, Aqua (Water), Linalool, Linalyl Acetate, Limonene, Lavandula Angustifolia (Lavender) Oil, Citrus Bergamia (Bergamot) Peel Oil Expressed, Vanilla Planifolia Fruit Extract, Dipteryx Odorata (Tonka Bean) Seed Extract, Styrax Benzoin Resin Extract, Salvia Sclarea (Clary Sage) Oil, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Coumarin, Geraniol, Citral.
-        * From 100% natural essential oils and botanical extracts',
-        shipping: 'Standard shipping is $7.99 and free for purchases over $35',
-        directions: 'FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.'
+        ingredients: `Alcohol Denat. (Infused with Lavandula Angustifolia), Parfum (Fragrance)*, Aqua (Water), Linalool, Linalyl Acetate, Limonene, Lavandula Angustifolia (Lavender) Oil, Citrus Bergamia (Bergamot) Peel Oil Expressed, Vanilla Planifolia Fruit Extract, Dipteryx Odorata (Tonka Bean) Seed Extract, Styrax Benzoin Resin Extract, Salvia Sclarea (Clary Sage) Oil, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Coumarin, Geraniol, Citral.
+
+* From 100% natural essential oils and botanical extracts`,
+        shipping: `Standard shipping is $7.99 and free for purchases over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.`
       },
       'garden-jasmine': {
         title: 'Garden Jasmine ᯽',
         category: 'Purely Botanical Eau de Toilette',
         image: 'jasmine.png',
-        description: 'Made with hand-harvested garden jasmine blossoms, this fragrance opens with a brilliant splash of sun-warmed bergamot and tropical ylang ylang before unfolding into a lush heart of real Sambac and Grandiflorum jasmine absolutes. As it settles on the skin, smooth sandalwood, dry cedar, and golden benzoin engulf the white petals in a soft, velvety warmth.',
+        description: `Made with hand-harvested garden jasmine blossoms, this fragrance opens with a brilliant splash of sun-warmed bergamot and tropical ylang ylang before unfolding into a lush heart of real Sambac and Grandiflorum jasmine absolutes. As it settles on the skin, smooth sandalwood, dry cedar, and golden benzoin engulf the white petals in a soft, velvety warmth.`,
         type: 'spray',
         basePrice: 29.00,
         prices: { '2mL': '$5.00', '15mL': '$29.00', '50mL': '$61.00' },
-        ingredients: 'Alcohol Denat. (Infused with Jasminum Officinale), Parfum (Fragrance)*, Aqua (Water), Linalool, Limonene, Citrus Bergamia (Bergamot) Peel Oil Expressed, Jasminum Sambac (Jasmine) Flower Extract, Jasminum Grandiflorum (Jasmine) Flower Extract, Cananga Odorata (Ylang Ylang) Flower Oil, Juniperus Virginiana (Cedarwood) Oil, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Vanilla Planifolia Fruit Extract, Styrax Benzoin Resin Extract, Benzyl Benzoate, Geraniol, Farnesol, Benzyl Salicylate, Eugenol.
-        * From 100% natural essential oils and botanical extracts',
-        shipping: 'Standard shipping is $7.99 and free for purchases over $35',
-        directions: 'FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.'
+        ingredients: `Alcohol Denat. (Infused with Jasminum Officinale), Parfum (Fragrance)*, Aqua (Water), Linalool, Limonene, Citrus Bergamia (Bergamot) Peel Oil Expressed, Jasminum Sambac (Jasmine) Flower Extract, Jasminum Grandiflorum (Jasmine) Flower Extract, Cananga Odorata (Ylang Ylang) Flower Oil, Juniperus Virginiana (Cedarwood) Oil, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Vanilla Planifolia Fruit Extract, Styrax Benzoin Resin Extract, Benzyl Benzoate, Geraniol, Farnesol, Benzyl Salicylate, Eugenol.
+
+* From 100% natural essential oils and botanical extracts`,
+        shipping: `Standard shipping is $7.99 and free for purchases over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Spritz onto pulse points, such as the wrists, neck, and behind the ears, from 3 to 6 inches away. Allow the fragrance to dry naturally on the skin without rubbing to preserve the freshness of the top notes. Reapply throughout the day as desired. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not spray near eyes or broken skin. Keep out of reach of children.`
       },
       'garden-honeysuckle': {
         title: 'Garden Honeysuckle ᯽',
         category: 'Purely Botanical Perfume Oil',
         image: 'honeysuckle.png',
-        description: 'A sun drenched botanical perfume oil inspired by golden summer afternoons. Crafted with hand-harvested garden honeysuckle blossoms infused in nourishing jojoba oil, this silky roll-on opens with a bright splash of sweet orange and honeyed neroli. As it melts into the skin, a creamy heart of ylang ylang rests gently on a warm, comforting base of sweet vanilla and soft sandalwood.',
+        description: `A sun drenched botanical perfume oil inspired by golden summer afternoons. Crafted with hand-harvested garden honeysuckle blossoms infused in nourishing jojoba oil, this silky roll-on opens with a bright splash of sweet orange and honeyed neroli. As it melts into the skin, a creamy heart of ylang ylang rests gently on a warm, comforting base of sweet vanilla and soft sandalwood.`,
         type: 'roller',
         basePrice: 19.00,
         prices: { '10mL': '$19.00' },
-        ingredients: 'Simmondsia Chinensis (Jojoba) Seed Oil (Infused with Lonicera Japonica), Caprylic/Capric Triglyceride, Parfum (Fragrance)*, Citrus Sinensis (Sweet Orange) Peel Oil, Cananga Odorata (Ylang Ylang) Flower Oil, Citrus Aurantium Amara (Neroli) Flower Oil, Vanilla Planifolia Fruit Extract, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Tocopherol (Vitamin E), Limonene, Linalool, Benzyl Benzoate, Farnesol, Geraniol, Benzyl Salicylate.
-        * From 100% natural essential oils and botanical extracts',
-        shipping: 'Standard shipping is $7.99 and free for purchases over $35',
-        directions: 'FOR EXTERNAL USE ONLY. Glide the rollerball gently over pulse points, such as the wrists, neck, and behind the ears. Allow the oil to absorb naturally into the skin. Reapply throughout the day as desired for a soft, hydrating fragrance experience. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not apply near eyes or to broken skin. Keep out of reach of children.'
+        ingredients: `Simmondsia Chinensis (Jojoba) Seed Oil (Infused with Lonicera Japonica), Caprylic/Capric Triglyceride, Parfum (Fragrance)*, Citrus Sinensis (Sweet Orange) Peel Oil, Cananga Odorata (Ylang Ylang) Flower Oil, Citrus Aurantium Amara (Neroli) Flower Oil, Vanilla Planifolia Fruit Extract, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Tocopherol (Vitamin E), Limonene, Linalool, Benzyl Benzoate, Farnesol, Geraniol, Benzyl Salicylate.
+
+* From 100% natural essential oils and botanical extracts`,
+        shipping: `Standard shipping is $7.99 and free for purchases over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Glide the rollerball gently over pulse points, such as the wrists, neck, and behind the ears. Allow the oil to absorb naturally into the skin. Reapply throughout the day as desired for a soft, hydrating fragrance experience. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not apply near eyes or to broken skin. Keep out of reach of children.`
       },
       'natural-rose': {
         title: 'Natural Rose ᯽',
         category: 'Purely Botanical Perfume Oil',
         image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80',
-        description: 'The fresh scent of a blooming rose garden at sunrise. Crafted with pure Damask and May rose absolutes suspended in nourishing jojoba oil, this silky roll-on opens with a bright splash of sun-warmed bergamot and green geranium. As it warms against the skin, it unveils a rich, velvety heart of sweet rose petals resting on a smooth cushion of creamy sandalwood and soft vanilla.',
+        description: `The fresh scent of a blooming rose garden at sunrise. Crafted with pure Damask and May rose absolutes suspended in nourishing jojoba oil, this silky roll-on opens with a bright splash of sun-warmed bergamot and green geranium. As it warms against the skin, it unveils a rich, velvety heart of sweet rose petals resting on a smooth cushion of creamy sandalwood and soft vanilla.`,
         type: 'roller',
         basePrice: 17.00,
         prices: { '10mL': '$17.00' },
-        ingredients: 'Simmondsia Chinensis (Jojoba) Seed Oil, Caprylic/Capric Triglyceride, Parfum (Fragrance)*, Rosa Damascena (Rose) Flower Extract, Rosa Centifolia (Rose) Flower Extract, Citrus Bergamia (Bergamot) Peel Oil Expressed, Pelargonium Graveolens (Geranium) Flower Oil, Vanilla Planifolia Fruit Extract, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Tocopherol (Vitamin E), Citronellol, Geraniol, Linalool, Limonene, Citral, Eugenol, Farnesol.
-        * From 100% natural essential oils and botanical extracts',
-        shipping: 'Standard shipping is $7.99 and free for purchases over $35',
-        directions: 'FOR EXTERNAL USE ONLY. Glide the rollerball gently over pulse points, such as the wrists, neck, and behind the ears. Allow the oil to absorb naturally into the skin. Reapply throughout the day as desired for a soft, hydrating fragrance experience. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
-        WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not apply near eyes or to broken skin. Keep out of reach of children.'
+        ingredients: `Simmondsia Chinensis (Jojoba) Seed Oil, Caprylic/Capric Triglyceride, Parfum (Fragrance)*, Rosa Damascena (Rose) Flower Extract, Rosa Centifolia (Rose) Flower Extract, Citrus Bergamia (Bergamot) Peel Oil Expressed, Pelargonium Graveolens (Geranium) Flower Oil, Vanilla Planifolia Fruit Extract, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Tocopherol (Vitamin E), Citronellol, Geraniol, Linalool, Limonene, Citral, Eugenol, Farnesol.
+
+* From 100% natural essential oils and botanical extracts`,
+        shipping: `Standard shipping is $7.99 and free for purchases over $35.`,
+        directions: `FOR EXTERNAL USE ONLY. Glide the rollerball gently over pulse points, such as the wrists, neck, and behind the ears. Allow the oil to absorb naturally into the skin. Reapply throughout the day as desired for a soft, hydrating fragrance experience. Discontinue use if irritation occurs. Patch testing is recommended for sensitive skin.
+
+WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. Do not apply near eyes or to broken skin. Keep out of reach of children.`
       }
     };
 
@@ -1107,15 +1121,12 @@
       const product = productData[productId];
       if (!product) return;
 
-      // Hide all home and catalog sections
       document.querySelectorAll('.home-section').forEach(s => s.classList.add('hidden'));
       document.getElementById('catalog').classList.add('hidden-view');
 
-      // Show product details view
       const detailsView = document.getElementById('productDetailsView');
       detailsView.style.display = 'block';
 
-      // Populate Data
       document.getElementById('pdImage').src = product.image;
       document.getElementById('pdImage').alt = product.title;
       document.getElementById('pdTitle').textContent = product.title;
@@ -1125,7 +1136,6 @@
       document.getElementById('pdShipping').textContent = product.shipping;
       document.getElementById('pdDirections').textContent = product.directions;
 
-      // Populate Size Rectangles
       const sizeContainer = document.getElementById('pdSizeBoxes');
       sizeContainer.innerHTML = '';
 
@@ -1147,7 +1157,6 @@
         });
         document.getElementById('pdPrice').textContent = product.prices['15mL'];
       } else {
-        // Roll-on (1 size: 10mL)
         const box = document.createElement('div');
         box.className = 'size-box active';
         box.innerHTML = `
