@@ -234,7 +234,12 @@
 
     .product-card {
       text-align: center;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
     }
 
     .product-card.hidden {
@@ -279,7 +284,7 @@
       color: #666;
       cursor: pointer;
       margin-bottom: 15px;
-      display: none; /* Shown only when inside a category page view */
+      display: none;
       transition: color 0.2s ease;
     }
 
@@ -288,8 +293,177 @@
       text-decoration: underline;
     }
 
-    /* Helper utility class to hide homepage sections when navigating categories */
-    .home-section.hidden {
+    /* Product Details Page View */
+    .product-details-view {
+      display: none;
+      padding: 60px 0;
+    }
+
+    .product-details-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .product-details-image {
+      aspect-ratio: 2/3;
+      background: #f7f7f7;
+      overflow: hidden;
+    }
+
+    .product-details-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-details-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pd-category {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .pd-title {
+      font-size: 38px;
+      font-weight: normal;
+      margin-bottom: 15px;
+      line-height: 1.1;
+    }
+
+    .pd-price {
+      font-size: 24px;
+      color: var(--text-color);
+      margin-bottom: 20px;
+    }
+
+    .pd-description {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    /* Size Selector Rectangles */
+    .size-selector-label {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      font-weight: bold;
+    }
+
+    .size-boxes {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .size-box {
+      border: 1px solid #ccc;
+      padding: 12px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 90px;
+      background: #fff;
+    }
+
+    .size-box .size-name {
+      font-size: 15px;
+      font-weight: bold;
+      display: block;
+    }
+
+    .size-box .size-price {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+      display: block;
+    }
+
+    .size-box.active, .size-box:hover {
+      border-color: var(--text-color);
+      background-color: var(--bg-light);
+    }
+
+    .pd-add-to-cart {
+      width: 100%;
+      background-color: var(--text-color);
+      color: #ffffff;
+      border: 1px solid var(--text-color);
+      padding: 16px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 40px;
+      transition: background-color 0.3s ease;
+    }
+
+    .pd-add-to-cart:hover {
+      background-color: var(--primary-purple-dark);
+      border-color: var(--primary-purple-dark);
+      color: var(--text-color);
+    }
+
+    /* 3-Tier Collapsible Accordion */
+    .pd-accordion {
+      border-top: 1px solid #eee;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #eee;
+    }
+
+    .accordion-header {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 0;
+      text-align: left;
+      font-family: inherit;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-color);
+    }
+
+    .accordion-content {
+      display: none;
+      padding-bottom: 20px;
+      font-size: 15px;
+      color: #555;
+      line-height: 1.7;
+    }
+
+    .accordion-item.active .accordion-content {
+      display: block;
+    }
+
+    .accordion-item.active .accordion-header span {
+      transform: rotate(45deg);
+    }
+
+    .accordion-header span {
+      font-size: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    /* Helper utility class to hide elements */
+    .home-section.hidden, .hidden-view {
       display: none !important;
     }
 
@@ -514,6 +688,10 @@
       .newsletter-form input[type="email"], .newsletter-form .btn {
         width: 100%;
       }
+      .product-details-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
     }
   </style>
 </head>
@@ -602,7 +780,7 @@
     </div>
 
     <div class="product-grid" style="margin-top: 40px;">
-      <div class="product-card" data-category="bestsellers eau-de-parfums">
+      <div class="product-card" data-category="bestsellers eau-de-parfums" onclick="openProductDetails('orange-blossom')">
         <div class="product-image">
           <img src="orangeblossoms.png" alt="Orange Blossom Eau de Parfum">
         </div>
@@ -610,7 +788,7 @@
         <div class="product-price">$24.00</div>
       </div>
 
-      <div class="product-card" data-category="eau-de-parfums">
+      <div class="product-card" data-category="eau-de-parfums" onclick="openProductDetails('chypre')">
         <div class="product-image">
           <img src="chypres.png" alt="Chypre Eau de Parfum">
         </div>
@@ -618,7 +796,7 @@
         <div class="product-price">$22.00</div>
       </div>
 
-      <div class="product-card" data-category="bestsellers eau-de-toilettes">
+      <div class="product-card" data-category="bestsellers eau-de-toilettes" onclick="openProductDetails('iris')">
         <div class="product-image">
           <img src="iris.png" alt="Iris Eau de Toilette">
         </div>
@@ -626,7 +804,7 @@
         <div class="product-price">$20.00</div>
       </div>
 
-      <div class="product-card" data-category="new-arrivals eau-de-toilettes">
+      <div class="product-card" data-category="new-arrivals eau-de-toilettes" onclick="openProductDetails('vanilla-sandalwood')">
         <div class="product-image">
           <img src="vanilla.png" alt="Vanilla Sandalwood">
         </div>
@@ -634,7 +812,7 @@
         <div class="product-price">$22.00</div>
       </div>
 
-      <div class="product-card" data-category="new-arrivals oil-rollers">
+      <div class="product-card" data-category="new-arrivals oil-rollers" onclick="openProductDetails('fig-honey')">
         <div class="product-image">
           <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" alt="Fig & Honey">
         </div>
@@ -642,7 +820,7 @@
         <div class="product-price">$15.00</div>
       </div>
 
-      <div class="product-card" data-category="eau-de-parfums purely-botanicals">
+      <div class="product-card" data-category="eau-de-parfums purely-botanicals" onclick="openProductDetails('garden-lavender')">
         <div class="product-image">
           <img src="lavender.png" alt="Garden Lavender">
         </div>
@@ -650,7 +828,7 @@
         <div class="product-price">$27.00</div>
       </div>
 
-      <div class="product-card" data-category="eau-de-toilettes purely-botanicals">
+      <div class="product-card" data-category="eau-de-toilettes purely-botanicals" onclick="openProductDetails('garden-jasmine')">
         <div class="product-image">
           <img src="jasmine.png" alt="Garden Jasmine">
         </div>
@@ -658,7 +836,7 @@
         <div class="product-price">$29.00</div>
       </div>
 
-      <div class="product-card" data-category="oil-rollers purely-botanicals">
+      <div class="product-card" data-category="oil-rollers purely-botanicals" onclick="openProductDetails('garden-honeysuckle')">
         <div class="product-image">
           <img src="honeysuckle.png" alt="Garden Honeysuckle">
         </div>
@@ -666,12 +844,66 @@
         <div class="product-price">$19.00</div>
       </div>
 
-      <div class="product-card" data-category="oil-rollers purely-botanicals">
+      <div class="product-card" data-category="oil-rollers purely-botanicals" onclick="openProductDetails('natural-rose')">
         <div class="product-image">
           <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="Natural Rose">
         </div>
         <div class="product-title">Natural Rose ᯽</div>
         <div class="product-price">$17.00</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-details-view container" id="productDetailsView">
+    <button class="back-btn" style="display:inline-block;" onclick="showCatalog()">&larr; Back to Collection</button>
+    <div class="product-details-layout" style="margin-top:20px;">
+      <div class="product-details-image">
+        <img id="pdImage" src="" alt="Product Image">
+      </div>
+      <div class="product-details-info">
+        <div class="pd-category" id="pdCategory">Category</div>
+        <h1 class="pd-title" id="pdTitle">Product Title</h1>
+        <div class="pd-price" id="pdPrice">$0.00</div>
+        <p class="pd-description" id="pdDescription">
+          Type your thorough fragrance description here. Highlight top, middle, and base notes or the general vibe of the scent profile.
+        </p>
+
+        <div class="size-selector-container">
+          <div class="size-selector-label">Select Size</div>
+          <div class="size-boxes" id="pdSizeBoxes">
+            </div>
+        </div>
+
+        <button class="pd-add-to-cart">Add to Cart</button>
+
+        <div class="pd-accordion">
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              Ingredients <span>+</span>
+            </button>
+            <div class="accordion-content" id="pdIngredients">
+              Type your ingredients list here (e.g., Organic Sugar Cane Alcohol, Fragrance/Parfum, Botanical Extracts, Essential Oils).
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              Shipping <span>+</span>
+            </button>
+            <div class="accordion-content" id="pdShipping">
+              Orders are handcrafted and processed within 2–4 business days. Standard shipping options are available at checkout, with free shipping on orders over $35.
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <button class="accordion-header" onclick="toggleAccordion(this)">
+              Directions <span>+</span>
+            </button>
+            <div class="accordion-content" id="pdDirections">
+              Apply to pulse points such as wrists, neck, and inner elbows. Store in a cool, dry place away from direct sunlight for maximum preservation of delicate scent notes.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -745,48 +977,215 @@
     closeBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
 
-    /* Open Dedicated Category View */
+    /* Product Database */
+    const productData = {
+      'orange-blossom': {
+        title: 'Orange Blossom',
+        category: 'Eau de Parfum',
+        image: 'orangeblossoms.png',
+        description: 'A bright, luminous floral accord with notes of sun-drenched orange flower petals, citrus zest, and a subtle amber undertone.',
+        type: 'spray', // EDP/EDT get 3 sizes
+        basePrice: 24.00, // 15mL price
+        prices: { '2mL': '$8.00', '15mL': '$24.00', '50mL': '$65.00' },
+        ingredients: 'Organic Cane Alcohol, Fragrance (Parfum), Citrus Aurantium Flower Oil, Aqua.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Spritz lightly onto pulse points (wrists, neck, chest). Allow to dry naturally without rubbing.'
+      },
+      'chypre': {
+        title: 'Chypre',
+        category: 'Eau de Parfum',
+        image: 'chypres.png',
+        description: 'A sophisticated blend featuring warm bergamot top notes over a rich, mossy oakwood and soft patchouli base.',
+        type: 'spray',
+        basePrice: 22.00,
+        prices: { '2mL': '$7.00', '15mL': '$22.00', '50mL': '$60.00' },
+        ingredients: 'Organic Cane Alcohol, Fragrance (Parfum), Oakmoss Extract, Bergamot Oil, Aqua.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Apply to pulse points. Reapply as desired throughout the day.'
+      },
+      'iris': {
+        title: 'Iris',
+        category: 'Eau de Toilette',
+        image: 'iris.png',
+        description: 'An delicate, powdery floral scent celebrating soft iris root accords complemented by light herbal accents.',
+        type: 'spray',
+        basePrice: 20.00,
+        prices: { '2mL': '$6.00', '15mL': '$20.00', '50mL': '$55.00' },
+        ingredients: 'Organic Cane Alcohol, Fragrance (Parfum), Iris Pallida Root Extract, Aqua.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Spritz on wrists and neck for an elegant daily fragrance layer.'
+      },
+      'vanilla-sandalwood': {
+        title: 'Vanilla Sandalwood',
+        category: 'Eau de Toilette',
+        image: 'vanilla.png',
+        description: 'A cozy, enveloping aroma combining creamy warm bourbon vanilla with smooth Australian sandalwood.',
+        type: 'spray',
+        basePrice: 22.00,
+        prices: { '2mL': '$7.00', '15mL': '$22.00', '50mL': '$58.00' },
+        ingredients: 'Organic Cane Alcohol, Fragrance (Parfum), Vanilla Planifolia Extract, Sandalwood Oil, Aqua.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Spritz generously onto pulse points and clothing for lasting warmth.'
+      },
+      'fig-honey': {
+        title: 'Fig & Honey',
+        category: 'Perfume Oil Roller',
+        image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80',
+        description: 'A rich, sweet botanical roller oil infused with ripe wild fig and golden flower nectar.',
+        type: 'roller', // Rollers get 1 size (10mL)
+        basePrice: 15.00,
+        prices: { '10mL': '$15.00' },
+        ingredients: 'Jojoba Seed Oil, Caprylic/Capric Triglyceride, Fragrance (Parfum), Botanical Extract Blend.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Glide glass rollerball over collarbones, wrists, and pulse points.'
+      },
+      'garden-lavender': {
+        title: 'Garden Lavender ᯽',
+        category: 'Purely Botanical Eau de Parfum',
+        image: 'lavender.png',
+        description: '100% plant-extracted pure lavender flower essence sourced from French fields, offering a tranquil, calming aroma.',
+        type: 'spray',
+        basePrice: 27.00,
+        prices: { '2mL': '$9.00', '15mL': '$27.00', '50mL': '$70.00' },
+        ingredients: '100% Organic Cane Alcohol, Pure Lavandula Angustifolia (Lavender) Essential Oil, Botanical Water.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Mist lightly over wrists and pillowcases for serene botanical scenting.'
+      },
+      'garden-jasmine': {
+        title: 'Garden Jasmine ᯽',
+        category: 'Purely Botanical Eau de Toilette',
+        image: 'jasmine.png',
+        description: 'A intoxicating natural floral extract of night-blooming jasmine flowers with zero synthetic additives.',
+        type: 'spray',
+        basePrice: 29.00,
+        prices: { '2mL': '$10.00', '15mL': '$29.00', '50mL': '$75.00' },
+        ingredients: '100% Organic Cane Alcohol, Jasminum Officinale (Jasmine) Extract, Pure Flower Distillate.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Spritz gently onto pulse points.'
+      },
+      'garden-honeysuckle': {
+        title: 'Garden Honeysuckle ᯽',
+        category: 'Purely Botanical Perfume Oil',
+        image: 'honeysuckle.png',
+        description: 'Pure, sweet honeysuckle blossom nectar suspended in rich nourishing jojoba botanical carrier oil.',
+        type: 'roller',
+        basePrice: 19.00,
+        prices: { '10mL': '$19.00' },
+        ingredients: 'Simmondsia Chinensis (Jojoba) Seed Oil, Pure Lonicera Caprifolium (Honeysuckle) Extract.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Roll gently onto pulse points and smooth gently into skin.'
+      },
+      'natural-rose': {
+        title: 'Natural Rose ᯽',
+        category: 'Purely Botanical Perfume Oil',
+        image: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80',
+        description: 'An authentic fresh rose petal extract offering a delicate, timeless floral essence.',
+        type: 'roller',
+        basePrice: 17.00,
+        prices: { '10mL': '$17.00' },
+        ingredients: 'Simmondsia Chinensis (Jojoba) Seed Oil, Rosa Damascena (Rose) Flower Oil.',
+        shipping: 'Handcrafted and shipped within 2–4 business days. Free shipping on orders over $35.',
+        directions: 'Roll onto wrists and pulse points as needed.'
+      }
+    };
+
+    /* Open Individual Product Details Page */
+    function openProductDetails(productId) {
+      const product = productData[productId];
+      if (!product) return;
+
+      // Hide all home and catalog sections
+      document.querySelectorAll('.home-section').forEach(s => s.classList.add('hidden'));
+      document.getElementById('catalog').classList.add('hidden-view');
+
+      // Show product details view
+      const detailsView = document.getElementById('productDetailsView');
+      detailsView.style.display = 'block';
+
+      // Populate Data
+      document.getElementById('pdImage').src = product.image;
+      document.getElementById('pdImage').alt = product.title;
+      document.getElementById('pdTitle').textContent = product.title;
+      document.getElementById('pdCategory').textContent = product.category;
+      document.getElementById('pdDescription').textContent = product.description;
+      document.getElementById('pdIngredients').textContent = product.ingredients;
+      document.getElementById('pdShipping').textContent = product.shipping;
+      document.getElementById('pdDirections').textContent = product.directions;
+
+      // Populate Size Rectangles
+      const sizeContainer = document.getElementById('pdSizeBoxes');
+      sizeContainer.innerHTML = '';
+
+      if (product.type === 'spray') {
+        const sizes = ['2mL', '15mL', '50mL'];
+        sizes.forEach(size => {
+          const box = document.createElement('div');
+          box.className = `size-box ${size === '15mL' ? 'active' : ''}`;
+          box.innerHTML = `
+            <span class="size-name">${size}</span>
+            <span class="size-price">${product.prices[size]}</span>
+          `;
+          box.onclick = function() {
+            document.querySelectorAll('.size-box').forEach(b => b.classList.remove('active'));
+            box.classList.add('active');
+            document.getElementById('pdPrice').textContent = product.prices[size];
+          };
+          sizeContainer.appendChild(box);
+        });
+        document.getElementById('pdPrice').textContent = product.prices['15mL'];
+      } else {
+        // Roll-on (1 size: 10mL)
+        const box = document.createElement('div');
+        box.className = 'size-box active';
+        box.innerHTML = `
+          <span class="size-name">10mL</span>
+          <span class="size-price">${product.prices['10mL']}</span>
+        `;
+        sizeContainer.appendChild(box);
+        document.getElementById('pdPrice').textContent = product.prices['10mL'];
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Return to Main Collection Catalog View */
+    function showCatalog() {
+      document.getElementById('productDetailsView').style.display = 'none';
+      document.getElementById('catalog').classList.remove('hidden-view');
+    }
+
+    /* Open Category View */
     function openCategoryPage(category) {
       closeSidebar();
+      document.getElementById('productDetailsView').style.display = 'none';
 
       if (category === 'all') {
         showHomePage();
         return;
       }
 
-      // Hide homepage sections
-      const homeSections = document.querySelectorAll('.home-section');
-      homeSections.forEach(sec => sec.classList.add('hidden'));
-
-      // Show back button
+      document.querySelectorAll('.home-section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById('catalog').classList.remove('hidden-view');
       document.getElementById('backBtn').style.display = 'inline-block';
 
-      // Filter products
       filterProducts(category);
-
-      // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* Restore Homepage View */
+    /* Restore Full Homepage View */
     function showHomePage() {
       closeSidebar();
+      document.getElementById('productDetailsView').style.display = 'none';
 
-      // Unhide homepage sections
-      const homeSections = document.querySelectorAll('.home-section');
-      homeSections.forEach(sec => sec.classList.remove('hidden'));
-
-      // Hide back button
+      document.querySelectorAll('.home-section').forEach(sec => sec.classList.remove('hidden'));
+      document.getElementById('catalog').classList.remove('hidden-view');
       document.getElementById('backBtn').style.display = 'none';
 
-      // Reset product catalog to show all
       filterProducts('all');
-
-      // Scroll to top 
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* Filter Logic */
+    /* Filter Product Catalog */
     function filterProducts(category) {
       const products = document.querySelectorAll('.product-card');
       const heading = document.getElementById('catalog-heading');
@@ -812,6 +1211,12 @@
           product.classList.add('hidden');
         }
       });
+    }
+
+    /* Toggle Accordion Dropdowns */
+    function toggleAccordion(button) {
+      const item = button.parentElement;
+      item.classList.toggle('active');
     }
   </script>
     
