@@ -116,6 +116,10 @@
       font-size: 14px;
     }
 
+    .cart-link {
+      cursor: pointer;
+    }
+
     /* 3. Hero Banner */
     .hero {
       position: relative;
@@ -463,6 +467,139 @@
       transition: transform 0.2s ease;
     }
 
+    /* Cart Drawer Styling */
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: -380px;
+      width: 350px;
+      height: 100%;
+      background-color: var(--bg-white);
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 2000;
+      transition: right 0.3s ease-in-out;
+      padding: 30px 25px;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .cart-drawer.active {
+      right: 0;
+    }
+
+    .cart-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 1500;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .cart-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--primary-purple);
+      margin-bottom: 20px;
+    }
+
+    .cart-header h2 {
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .empty-cart-msg {
+      text-align: center;
+      color: #777;
+      margin-top: 40px;
+      font-style: italic;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      align-items: center;
+    }
+
+    .cart-item-img {
+      width: 60px;
+      height: 80px;
+      object-fit: cover;
+      background: #f7f7f7;
+    }
+
+    .cart-item-details {
+      flex: 1;
+    }
+
+    .cart-item-title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .cart-item-size {
+      font-size: 13px;
+      color: #777;
+    }
+
+    .cart-item-price {
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: #999;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .cart-item-remove:hover {
+      color: #d9534f;
+    }
+
+    .cart-footer {
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+
+    .cart-subtotal {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .shipping-note {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
     /* Helper utility class to hide elements */
     .home-section.hidden, .hidden-view {
       display: none !important;
@@ -693,6 +830,10 @@
         grid-template-columns: 1fr;
         gap: 30px;
       }
+      .cart-drawer {
+        width: 300px;
+        right: -320px;
+      }
     }
   </style>
 </head>
@@ -714,7 +855,7 @@
       
       <div class="header-icons">
         <a href="#">Search</a>
-        <a href="#">Cart (0)</a>
+        <a class="cart-link" id="cartHeaderLink">Cart (<span id="cartCount">0</span>)</a>
       </div>
     </div>
   </header>
@@ -866,7 +1007,7 @@
         <h1 class="pd-title" id="pdTitle">Product Title</h1>
         <div class="pd-price" id="pdPrice">$0.00</div>
         <p class="pd-description" id="pdDescription">
-          Type your thorough fragrance description here. Highlight top, middle, and base notes or the general vibe of the scent profile.
+          Type your thorough fragrance description here.
         </p>
 
         <div class="size-selector-container">
@@ -875,7 +1016,7 @@
           </div>
         </div>
 
-        <button class="pd-add-to-cart">Add to Cart</button>
+        <button class="pd-add-to-cart" id="addToCartBtn">Add to Cart</button>
 
         <div class="pd-accordion">
           <div class="accordion-item">
@@ -958,6 +1099,28 @@
     </div>
   </footer>
 
+  <div class="cart-overlay" id="cartOverlay"></div>
+
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button class="close-btn" id="cartCloseBtn">&times;</button>
+    </div>
+
+    <div class="cart-items" id="cartItemsContainer">
+      <p class="empty-cart-msg">Your cart is currently empty.</p>
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+      </div>
+      <p class="shipping-note">Taxes and shipping calculated at checkout.</p>
+      <button class="pd-add-to-cart" style="margin-bottom:0;">Checkout</button>
+    </div>
+  </aside>
+
   <script>
     const menuToggle = document.getElementById('menuToggle');
     const closeBtn = document.getElementById('closeBtn');
@@ -978,7 +1141,30 @@
     closeBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
 
-    /* Product Database using backticks for safe multi-line text */
+    /* Cart Setup */
+    let cart = [];
+    let currentSelectedProduct = null;
+
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartCloseBtn = document.getElementById('cartCloseBtn');
+    const cartHeaderLink = document.getElementById('cartHeaderLink');
+
+    function openCart() {
+      cartDrawer.classList.add('active');
+      cartOverlay.classList.add('active');
+    }
+
+    function closeCart() {
+      cartDrawer.classList.remove('active');
+      cartOverlay.classList.remove('active');
+    }
+
+    cartHeaderLink.addEventListener('click', openCart);
+    cartCloseBtn.addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
+
+    /* Product Database */
     const productData = {
       'orange-blossom': {
         title: 'Orange Blossom',
@@ -1121,6 +1307,8 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
       const product = productData[productId];
       if (!product) return;
 
+      currentSelectedProduct = product;
+
       document.querySelectorAll('.home-section').forEach(s => s.classList.add('hidden'));
       document.getElementById('catalog').classList.add('hidden-view');
 
@@ -1168,6 +1356,68 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Add To Cart Button Handler */
+    document.getElementById('addToCartBtn').addEventListener('click', function() {
+      if (!currentSelectedProduct) return;
+
+      const activeSizeBox = document.querySelector('.size-box.active');
+      const sizeName = activeSizeBox ? activeSizeBox.querySelector('.size-name').textContent : '10mL';
+      const priceText = activeSizeBox ? activeSizeBox.querySelector('.size-price').textContent : currentSelectedProduct.prices['10mL'];
+      const numericPrice = parseFloat(priceText.replace('$', ''));
+
+      cart.push({
+        title: currentSelectedProduct.title,
+        size: sizeName,
+        price: numericPrice,
+        image: currentSelectedProduct.image
+      });
+
+      updateCartUI();
+      openCart();
+    });
+
+    /* Update Cart Interface */
+    function updateCartUI() {
+      const container = document.getElementById('cartItemsContainer');
+      const headerCount = document.getElementById('cartCount');
+      const subtotalEl = document.getElementById('cartSubtotal');
+
+      headerCount.textContent = cart.length;
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="empty-cart-msg">Your cart is currently empty.</p>';
+        subtotalEl.textContent = '$0.00';
+        return;
+      }
+
+      container.innerHTML = '';
+      let subtotal = 0;
+
+      cart.forEach((item, index) => {
+        subtotal += item.price;
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+          <img src="${item.image}" alt="${item.title}" class="cart-item-img">
+          <div class="cart-item-details">
+            <div class="cart-item-title">${item.title}</div>
+            <div class="cart-item-size">${item.size}</div>
+            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart(${index})">&times;</button>
+        `;
+        container.appendChild(itemEl);
+      });
+
+      subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+    }
+
+    /* Remove Item from Cart */
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
     }
 
     /* Return to Main Collection Catalog View */
