@@ -116,8 +116,56 @@
       font-size: 14px;
     }
 
-    .cart-link {
+    .search-link, .cart-link {
       cursor: pointer;
+    }
+
+    /* Search Bar Dropdown Overlay */
+    .search-overlay {
+      position: fixed;
+      top: -150px;
+      left: 0;
+      width: 100%;
+      background: var(--bg-white);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      z-index: 2500;
+      transition: top 0.3s ease-in-out;
+      padding: 20px 0;
+    }
+
+    .search-overlay.active {
+      top: 0;
+    }
+
+    .search-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 12px 20px;
+      font-size: 18px;
+      font-family: inherit;
+      border: 1px solid #ccc;
+      border-radius: 50px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary-purple-dark);
+    }
+
+    .search-close-btn {
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text-color);
     }
 
     /* 3. Hero Banner */
@@ -843,6 +891,13 @@
     Free shipping for purchases valuing over $35
   </div>
 
+  <div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search fragrances (e.g., Rose, Lavender, Eau de Parfum)..." />
+      <button class="search-close-btn" id="searchCloseBtn">&times;</button>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="container header-layout">
       <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">
@@ -854,7 +909,7 @@
       </div>
       
       <div class="header-icons">
-        <a href="#">Search</a>
+        <a class="search-link" id="searchHeaderBtn">Search</a>
         <a class="cart-link" id="cartHeaderLink">Cart (<span id="cartCount">0</span>)</a>
       </div>
     </div>
@@ -921,8 +976,8 @@
       <h2 class="section-title" id="catalog-heading" style="margin-bottom:0;">Our Collection</h2>
     </div>
 
-    <div class="product-grid" style="margin-top: 40px;">
-      <div class="product-card" data-category="bestsellers eau-de-parfums" onclick="openProductDetails('orange-blossom')">
+    <div class="product-grid" style="margin-top: 40px;" id="productGrid">
+      <div class="product-card" data-id="orange-blossom" data-category="bestsellers eau-de-parfums" onclick="openProductDetails('orange-blossom')">
         <div class="product-image">
           <img src="orangeblossoms.png" alt="Orange Blossom Eau de Parfum">
         </div>
@@ -930,7 +985,7 @@
         <div class="product-price">$24.00</div>
       </div>
 
-      <div class="product-card" data-category="eau-de-parfums" onclick="openProductDetails('chypre')">
+      <div class="product-card" data-id="chypre" data-category="eau-de-parfums" onclick="openProductDetails('chypre')">
         <div class="product-image">
           <img src="chypres.png" alt="Chypre Eau de Parfum">
         </div>
@@ -938,7 +993,7 @@
         <div class="product-price">$22.00</div>
       </div>
 
-      <div class="product-card" data-category="bestsellers eau-de-toilettes" onclick="openProductDetails('iris')">
+      <div class="product-card" data-id="iris" data-category="bestsellers eau-de-toilettes" onclick="openProductDetails('iris')">
         <div class="product-image">
           <img src="iris.png" alt="Iris Eau de Toilette">
         </div>
@@ -946,7 +1001,7 @@
         <div class="product-price">$20.00</div>
       </div>
 
-      <div class="product-card" data-category="new-arrivals eau-de-toilettes" onclick="openProductDetails('vanilla-sandalwood')">
+      <div class="product-card" data-id="vanilla-sandalwood" data-category="new-arrivals eau-de-toilettes" onclick="openProductDetails('vanilla-sandalwood')">
         <div class="product-image">
           <img src="vanilla.png" alt="Vanilla Sandalwood">
         </div>
@@ -954,7 +1009,7 @@
         <div class="product-price">$22.00</div>
       </div>
 
-      <div class="product-card" data-category="new-arrivals oil-rollers" onclick="openProductDetails('fig-honey')">
+      <div class="product-card" data-id="fig-honey" data-category="new-arrivals oil-rollers" onclick="openProductDetails('fig-honey')">
         <div class="product-image">
           <img src="fig & honey.png" alt="Fig & Honey">
         </div>
@@ -962,7 +1017,7 @@
         <div class="product-price">$15.00</div>
       </div>
 
-      <div class="product-card" data-category="eau-de-parfums purely-botanicals" onclick="openProductDetails('garden-lavender')">
+      <div class="product-card" data-id="garden-lavender" data-category="eau-de-parfums purely-botanicals" onclick="openProductDetails('garden-lavender')">
         <div class="product-image">
           <img src="lavender.png" alt="Garden Lavender">
         </div>
@@ -970,7 +1025,7 @@
         <div class="product-price">$27.00</div>
       </div>
 
-      <div class="product-card" data-category="eau-de-toilettes purely-botanicals" onclick="openProductDetails('garden-jasmine')">
+      <div class="product-card" data-id="garden-jasmine" data-category="eau-de-toilettes purely-botanicals" onclick="openProductDetails('garden-jasmine')">
         <div class="product-image">
           <img src="jasmine.png" alt="Garden Jasmine">
         </div>
@@ -978,7 +1033,7 @@
         <div class="product-price">$29.00</div>
       </div>
 
-      <div class="product-card" data-category="oil-rollers purely-botanicals" onclick="openProductDetails('garden-honeysuckle')">
+      <div class="product-card" data-id="garden-honeysuckle" data-category="oil-rollers purely-botanicals" onclick="openProductDetails('garden-honeysuckle')">
         <div class="product-image">
           <img src="honeysuckle.png" alt="Garden Honeysuckle">
         </div>
@@ -986,7 +1041,7 @@
         <div class="product-price">$19.00</div>
       </div>
 
-      <div class="product-card" data-category="oil-rollers purely-botanicals" onclick="openProductDetails('natural-rose')">
+      <div class="product-card" data-id="natural-rose" data-category="oil-rollers purely-botanicals" onclick="openProductDetails('natural-rose')">
         <div class="product-image">
           <img src="natural rose.png" alt="Natural Rose">
         </div>
@@ -1088,7 +1143,7 @@
   <footer class="site-footer">
     <div class="container">
       <ul class="footer-links">
-        <li><a href="#">Search</a></li>
+        <li><a class="search-link" onclick="openSearch()">Search</a></li>
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Refund Policy</a></li>
         <li><a href="#">Shipping Policy</a></li>
@@ -1163,6 +1218,60 @@
     cartHeaderLink.addEventListener('click', openCart);
     cartCloseBtn.addEventListener('click', closeCart);
     cartOverlay.addEventListener('click', closeCart);
+
+    /* Search Bar Setup */
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchInput = document.getElementById('searchInput');
+    const searchHeaderBtn = document.getElementById('searchHeaderBtn');
+    const searchCloseBtn = document.getElementById('searchCloseBtn');
+
+    function openSearch() {
+      searchOverlay.classList.add('active');
+      searchInput.focus();
+    }
+
+    function closeSearch() {
+      searchOverlay.classList.remove('active');
+      searchInput.value = '';
+      filterProducts('all'); // Reset grid when closing search
+    }
+
+    searchHeaderBtn.addEventListener('click', openSearch);
+    searchCloseBtn.addEventListener('click', closeSearch);
+
+    // Live Search Filter Logic
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase().trim();
+
+      // Ensure catalog grid is visible if searching from details page
+      document.getElementById('productDetailsView').style.display = 'none';
+      document.getElementById('catalog').classList.remove('hidden-view');
+      document.querySelectorAll('.home-section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById('backBtn').style.display = 'inline-block';
+
+      const heading = document.getElementById('catalog-heading');
+      heading.textContent = query ? `Search Results for "${query}"` : 'Our Collection';
+
+      const productCards = document.querySelectorAll('.product-card');
+
+      productCards.forEach(card => {
+        const id = card.getAttribute('data-id');
+        const data = productData[id];
+        
+        if (!data) return;
+
+        // Match against title, category, or description
+        const matchTitle = data.title.toLowerCase().includes(query);
+        const matchCategory = data.category.toLowerCase().includes(query);
+        const matchDescription = data.description.toLowerCase().includes(query);
+
+        if (query === '' || matchTitle || matchCategory || matchDescription) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
 
     /* Product Database */
     const productData = {
