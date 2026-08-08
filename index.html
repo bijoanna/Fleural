@@ -239,7 +239,6 @@
       transform: scale(1.05);
     }
 
-    /* Minimalist Dark Category Text */
     .category-card-title {
       position: absolute;
       bottom: 20px;
@@ -525,6 +524,82 @@
       transition: transform 0.2s ease;
     }
 
+    /* Privacy Policy Modal Styling */
+    .policy-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      padding: 20px;
+    }
+
+    .policy-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .policy-modal {
+      background: var(--bg-white);
+      max-width: 750px;
+      width: 100%;
+      max-height: 80vh;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .policy-header {
+      padding: 20px 30px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .policy-header h2 {
+      font-size: 22px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .policy-body {
+      padding: 30px;
+      overflow-y: auto;
+      font-size: 15px;
+      color: #444;
+      line-height: 1.7;
+    }
+
+    .policy-body h3 {
+      font-size: 17px;
+      color: var(--text-color);
+      margin: 20px 0 10px 0;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .policy-body ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+
+    .policy-footer {
+      padding: 15px 30px;
+      border-top: 1px solid #eee;
+      text-align: right;
+      background: var(--bg-light);
+    }
+
     /* Cart Drawer Styling */
     .cart-drawer {
       position: fixed;
@@ -643,7 +718,6 @@
       padding-top: 20px;
     }
 
-    /* Free Shipping Progress Indicator Styling */
     .shipping-progress-banner {
       background-color: var(--bg-light);
       border: 1px solid var(--primary-purple);
@@ -776,6 +850,10 @@
       flex-wrap: wrap;
       list-style: none;
       margin-bottom: 20px;
+    }
+
+    .footer-links a {
+      cursor: pointer;
     }
 
     .footer-links a:hover {
@@ -930,6 +1008,14 @@
       .cart-drawer {
         width: 300px;
         right: -320px;
+      }
+
+      .policy-modal {
+        max-height: 90vh;
+      }
+
+      .policy-body {
+        padding: 20px;
       }
     }
   </style>
@@ -1193,7 +1279,7 @@
     <div class="container">
       <ul class="footer-links">
         <li><a class="search-link" onclick="openSearch()">Search</a></li>
-        <li><a href="#">Privacy Policy</a></li>
+        <li><a onclick="openPolicyModal()">Privacy Policy</a></li>
         <li><a href="#">Refund Policy</a></li>
         <li><a href="#">Shipping Policy</a></li>
         <li><a href="#">Terms of Service</a></li>
@@ -1202,6 +1288,58 @@
       <p>&copy; 2026 Fleural. All rights reserved.</p>
     </div>
   </footer>
+
+  <div class="policy-overlay" id="policyOverlay">
+    <div class="policy-modal">
+      <div class="policy-header">
+        <h2>Privacy Policy</h2>
+        <button class="close-btn" style="position:static;" onclick="closePolicyModal()">&times;</button>
+      </div>
+      <div class="policy-body">
+        <p><em>Last Updated: August 8, 2026</em></p>
+        <br>
+        <p>At <strong>Fleural</strong>, the privacy of our visitors is one of our main priorities. This Privacy Policy document outlines the types of information that is collected and recorded by Fleural and how we use it.</p>
+        
+        <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us.</p>
+
+        <h3>1. Information We Collect</h3>
+        <p>When you interact with our website, we may collect the following information:</p>
+        <ul>
+          <li><strong>Email Address:</strong> When you sign up for our newsletter ("Join the Fleural Circle"), we collect the email address you provide.</li>
+          <li><strong>Shopping Cart Data:</strong> As you browse and add items to your cart, temporary data (such as selected products, item sizes, and subtotal calculations) is stored locally in your web browser to ensure your shopping cart functions properly during your session.</li>
+          <li><strong>Log Files & Device Data:</strong> Like most websites, we may automatically log standard information when you visit, including your IP address, browser type, device type, and operating system.</li>
+        </ul>
+
+        <h3>2. How We Use Your Information</h3>
+        <p>We use the information we collect in the following ways:</p>
+        <ul>
+          <li>To process and maintain your shopping cart while you browse our catalog.</li>
+          <li>To send you promotional updates, product drops, and newsletters (if you opted into our newsletter list).</li>
+          <li>To improve, personalize, and expand our website experience.</li>
+          <li>To analyze how visitors navigate and interact with our store.</li>
+        </ul>
+
+        <h3>3. Third-Party Services & Payment Processing</h3>
+        <p><strong>Checkout:</strong> Orders placed through Fleural are processed securely via third-party payment gateways. We do not store or save your full credit card details or bank credentials on our servers.</p>
+        <p><strong>Analytics & Hosting:</strong> We may use standard web hosting and analytics tools to understand website traffic. These services may collect basic user device data according to their own privacy policies.</p>
+
+        <h3>4. Cookies and Web Storage</h3>
+        <p>Fleural uses local browser storage and session cookies to remember preferences, keep track of items placed in your shopping cart, and preserve page state (such as search queries or active filters). You can choose to disable cookies through your individual browser options, though some features of the website (like the cart drawer) may not function properly as a result.</p>
+
+        <h3>5. Children's Information</h3>
+        <p>Protecting children's privacy online is important to us. Fleural does not knowingly collect any personally identifiable information from children under the age of 13. If you believe your child has provided personal information on our website, please contact us immediately and we will promptly remove it from our records.</p>
+
+        <h3>6. Updates to This Policy</h3>
+        <p>We may update our Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date.</p>
+
+        <h3>7. Contact Us</h3>
+        <p>If you have any questions or concerns regarding this Privacy Policy, please contact us at <strong>fleuralfragrances@gmail.com</strong>.</p>
+      </div>
+      <div class="policy-footer">
+        <button class="btn" style="background-color: var(--text-color); color: #fff; border-color: var(--text-color); padding: 8px 24px;" onclick="closePolicyModal()">I Understand</button>
+      </div>
+    </div>
+  </div>
 
   <div class="cart-overlay" id="cartOverlay"></div>
 
@@ -1247,6 +1385,23 @@
     menuToggle.addEventListener('click', openSidebar);
     closeBtn.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
+
+    /* Privacy Policy Modal Control */
+    const policyOverlay = document.getElementById('policyOverlay');
+
+    function openPolicyModal() {
+      policyOverlay.classList.add('active');
+    }
+
+    function closePolicyModal() {
+      policyOverlay.classList.remove('active');
+    }
+
+    policyOverlay.addEventListener('click', function(e) {
+      if (e.target === policyOverlay) {
+        closePolicyModal();
+      }
+    });
 
     /* Cart Setup */
     let cart = [];
@@ -1575,7 +1730,6 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
 
       subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
 
-      // Calculate free shipping progress
       const freeShippingThreshold = 35.00;
       if (subtotal >= freeShippingThreshold) {
         shippingBanner.textContent = "🎉 You've unlocked Free Shipping!";
