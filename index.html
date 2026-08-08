@@ -209,7 +209,7 @@
       line-height: 1.2;
     }
 
-    /* 4. Category Grid */
+    /* 4. Category Grid — Elegant Modern Overhaul */
     .categories {
       padding: 60px 0;
     }
@@ -226,27 +226,59 @@
       aspect-ratio: 2/3;
       background-color: #f2f2f2;
       cursor: pointer;
+      border-radius: 4px;
     }
 
     .category-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.6s ease;
+    }
+
+    /* Dark gradient scrim at the bottom so text is always readable */
+    .category-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+      transition: opacity 0.4s ease;
+      z-index: 1;
     }
 
     .category-card:hover img {
-      transform: scale(1.05);
+      transform: scale(1.06);
     }
 
     .category-card-title {
       position: absolute;
-      bottom: 20px;
-      left: 0; right: 0;
+      bottom: 25px;
+      left: 15px;
+      right: 15px;
+      z-index: 2;
       text-align: center;
       color: #ffffff;
-      font-size: 18px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 10px 15px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .category-card:hover .category-card-title {
+      background: #ffffff;
+      color: var(--text-color);
+      border-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     /* 5. Large Collection Banner */
@@ -956,7 +988,7 @@
         <div class="category-card-title">Oil Rollers</div>
       </div>
       <div class="category-card" onclick="openCategoryPage('purely-botanicals')">
-        <img src="lavender.png">
+        <img src="lavender.png" alt="Purely Botanicals">
         <div class="category-card-title">Purely Botanicals ᯽</div>
       </div>
     </div>
@@ -1351,7 +1383,7 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
         image: 'lavender.png',
         description: `Made with hand-harvested garden lavender, this 100% botanical fragrance opens with a bright splash of sun-warmed bergamot and fresh lavender. As it unfolds, a lush, herbaceous heart of clary sage and rich lavender absolute rests gently on a comforting base of sweet vanilla, warm tonka bean, and velvety sandalwood.`,
         type: 'spray',
-        basePrice: 27.00,
+basePrice: 27.00,
         prices: { '2mL': '$6.00', '15mL': '$27.00', '50mL': '$58.00' },
         ingredients: `Alcohol Denat. (Infused with Lavandula Angustifolia), Parfum (Fragrance)*, Aqua (Water), Linalool, Linalyl Acetate, Limonene, Lavandula Angustifolia (Lavender) Oil, Citrus Bergamia (Bergamot) Peel Oil Expressed, Vanilla Planifolia Fruit Extract, Dipteryx Odorata (Tonka Bean) Seed Extract, Styrax Benzoin Resin Extract, Salvia Sclarea (Clary Sage) Oil, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Coumarin, Geraniol, Citral.
 
