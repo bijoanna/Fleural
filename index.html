@@ -643,6 +643,20 @@
       padding-top: 20px;
     }
 
+    /* Free Shipping Progress Indicator Styling */
+    .shipping-progress-banner {
+      background-color: var(--bg-light);
+      border: 1px solid var(--primary-purple);
+      padding: 10px 12px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      margin-bottom: 15px;
+      color: var(--text-color);
+      font-weight: 600;
+    }
+
     .cart-subtotal {
       display: flex;
       justify-content: space-between;
@@ -1202,6 +1216,9 @@
     </div>
 
     <div class="cart-footer">
+      <div class="shipping-progress-banner" id="shippingProgressBanner">
+        Add $35.00 more to unlock Free Shipping!
+      </div>
       <div class="cart-subtotal">
         <span>Subtotal</span>
         <span id="cartSubtotal">$0.00</span>
@@ -1525,17 +1542,20 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
       const container = document.getElementById('cartItemsContainer');
       const headerCount = document.getElementById('cartCount');
       const subtotalEl = document.getElementById('cartSubtotal');
+      const shippingBanner = document.getElementById('shippingProgressBanner');
 
       headerCount.textContent = cart.length;
+
+      let subtotal = 0;
 
       if (cart.length === 0) {
         container.innerHTML = '<p class="empty-cart-msg">Your cart is currently empty.</p>';
         subtotalEl.textContent = '$0.00';
+        shippingBanner.textContent = 'Add $35.00 more to unlock Free Shipping!';
         return;
       }
 
       container.innerHTML = '';
-      let subtotal = 0;
 
       cart.forEach((item, index) => {
         subtotal += item.price;
@@ -1554,6 +1574,15 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
       });
 
       subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+
+      // Calculate free shipping progress
+      const freeShippingThreshold = 35.00;
+      if (subtotal >= freeShippingThreshold) {
+        shippingBanner.textContent = "🎉 You've unlocked Free Shipping!";
+      } else {
+        const remaining = (freeShippingThreshold - subtotal).toFixed(2);
+        shippingBanner.textContent = `Add $${remaining} more to unlock Free Shipping!`;
+      }
     }
 
     /* Remove Item from Cart */
