@@ -226,59 +226,36 @@
       aspect-ratio: 2/3;
       background-color: #f2f2f2;
       cursor: pointer;
-      border-radius: 4px;
     }
 
     .category-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.6s ease;
-    }
-
-    /* Dark gradient scrim at the bottom so text is always readable */
-    .category-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 50%;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
-      transition: opacity 0.4s ease;
-      z-index: 1;
+      transition: transform 0.5s ease;
     }
 
     .category-card:hover img {
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
 
+    /* Minimalist Dark Category Text */
     .category-card-title {
       position: absolute;
-      bottom: 25px;
-      left: 15px;
-      right: 15px;
-      z-index: 2;
+      bottom: 20px;
+      left: 0; right: 0;
       text-align: center;
-      color: #ffffff;
-      font-size: 19px;
+      color: var(--text-color);
+      font-size: 18px;
       font-weight: 600;
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      padding: 10px 15px;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 30px;
-      transition: all 0.3s ease;
+      padding: 8px 0;
+      transition: background-color 0.3s ease;
     }
 
     .category-card:hover .category-card-title {
-      background: #ffffff;
-      color: var(--text-color);
-      border-color: #ffffff;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      background-color: rgba(255, 255, 255, 0.85);
     }
 
     /* 5. Large Collection Banner */
@@ -908,19 +885,16 @@
         font-size: 30px;
       }
 
-      /* Stack Category Cards cleanly in 2 columns or 1 column */
       .category-grid {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 15px;
       }
 
-      /* Stack Product Showcase Grid in 2 columns on small screens */
       .product-grid {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
         gap: 20px;
       }
 
-      /* Stack Product Details page vertically on mobile */
       .product-details-layout {
         grid-template-columns: 1fr !important;
         gap: 25px;
@@ -1294,7 +1268,7 @@
     function closeSearch() {
       searchOverlay.classList.remove('active');
       searchInput.value = '';
-      filterProducts('all'); // Reset grid when closing search
+      filterProducts('all');
     }
 
     searchHeaderBtn.addEventListener('click', openSearch);
@@ -1304,7 +1278,6 @@
     searchInput.addEventListener('input', function() {
       const query = this.value.toLowerCase().trim();
 
-      // Ensure catalog grid is visible if searching from details page
       document.getElementById('productDetailsView').style.display = 'none';
       document.getElementById('catalog').classList.remove('hidden-view');
       document.querySelectorAll('.home-section').forEach(sec => sec.classList.add('hidden'));
@@ -1321,7 +1294,6 @@
         
         if (!data) return;
 
-        // Match against title, category, or description
         const matchTitle = data.title.toLowerCase().includes(query);
         const matchCategory = data.category.toLowerCase().includes(query);
         const matchDescription = data.description.toLowerCase().includes(query);
