@@ -209,7 +209,7 @@
       line-height: 1.2;
     }
 
-    /* 4. Category Grid — Elegant Modern Overhaul */
+    /* 4. Category Grid */
     .categories {
       padding: 60px 0;
     }
@@ -448,6 +448,7 @@
       display: flex;
       gap: 15px;
       margin-bottom: 30px;
+      flex-wrap: wrap;
     }
 
     .size-box {
@@ -882,34 +883,62 @@
       transform: translateX(4px);
     }    
     
-    /* Responsive Design */
+    /* Responsive Mobile Design Overhaul */
     @media (max-width: 768px) {
+      .container {
+        padding: 0 15px;
+      }
+      
       .header-layout {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
       }
+
       .logo img {
         max-height: 38px !important;
       }
+
       .header-icons {
         gap: 12px;
         font-size: 13px;
       }
+
       .hero-title {
         font-size: 30px;
       }
+
+      /* Stack Category Cards cleanly in 2 columns or 1 column */
+      .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+      }
+
+      /* Stack Product Showcase Grid in 2 columns on small screens */
+      .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 20px;
+      }
+
+      /* Stack Product Details page vertically on mobile */
+      .product-details-layout {
+        grid-template-columns: 1fr !important;
+        gap: 25px;
+      }
+
+      .pd-title {
+        font-size: 30px;
+      }
+
       .newsletter-form {
         flex-direction: column;
         padding: 0 20px;
       }
+
       .newsletter-form input[type="email"], .newsletter-form .btn {
         width: 100%;
       }
-      .product-details-layout {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
+
       .cart-drawer {
         width: 300px;
         right: -320px;
@@ -1383,7 +1412,7 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
         image: 'lavender.png',
         description: `Made with hand-harvested garden lavender, this 100% botanical fragrance opens with a bright splash of sun-warmed bergamot and fresh lavender. As it unfolds, a lush, herbaceous heart of clary sage and rich lavender absolute rests gently on a comforting base of sweet vanilla, warm tonka bean, and velvety sandalwood.`,
         type: 'spray',
-basePrice: 27.00,
+        basePrice: 27.00,
         prices: { '2mL': '$6.00', '15mL': '$27.00', '50mL': '$58.00' },
         ingredients: `Alcohol Denat. (Infused with Lavandula Angustifolia), Parfum (Fragrance)*, Aqua (Water), Linalool, Linalyl Acetate, Limonene, Lavandula Angustifolia (Lavender) Oil, Citrus Bergamia (Bergamot) Peel Oil Expressed, Vanilla Planifolia Fruit Extract, Dipteryx Odorata (Tonka Bean) Seed Extract, Styrax Benzoin Resin Extract, Salvia Sclarea (Clary Sage) Oil, Santalum Austrocaledonicum (Sandalwood) Wood Oil, Coumarin, Geraniol, Citral.
 
