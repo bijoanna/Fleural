@@ -1605,6 +1605,7 @@
 
         <h3>3. Third-Party Services & Payment Processing</h3>
         <p><strong>Checkout:</strong> Orders placed through Fleural are processed securely via third-party payment gateways. We do not store or save your full credit card details or bank credentials on our servers.</p>
+        <p><strong>Analytics & Hosting:</strong> We may use standard web hosting and analytics tools to understand website traffic. These services may collect basic user device data according to their own privacy policies.</p>
 
         <h3>4. Cookies and Web Storage</h3>
         <p>Fleural uses local browser storage and session cookies to remember preferences, keep track of items placed in your shopping cart, and preserve page state (such as search queries or active filters). You can choose to disable cookies through your individual browser options, though some features of the website (like the cart drawer) may not function properly as a result.</p>
@@ -2091,7 +2092,7 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
 
       const freeShippingThreshold = 35.00;
       if (subtotal >= freeShippingThreshold) {
-        shippingBanner.textContent = "You've unlocked Free Shipping!";
+        shippingBanner.textContent = "🎉 You've unlocked Free Shipping!";
       } else {
         const remaining = (freeShippingThreshold - subtotal).toFixed(2);
         shippingBanner.textContent = `Add $${remaining} more to unlock Free Shipping!`;
