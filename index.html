@@ -88,6 +88,7 @@
       font-size: 13px;
       letter-spacing: 1px;
       text-transform: uppercase;
+      font-weight: 600;
     }
 
     /* 2. Header & Navigation */
@@ -621,6 +622,20 @@
       font-size: 15px;
       color: #666;
       margin-bottom: 25px;
+    }
+
+    /* Maintenance Notice Boxes */
+    .auth-notice-msg, .cart-notice-msg {
+      display: none;
+      background-color: #fff0f0;
+      border: 1px solid #f5c2c2;
+      color: #d9534f;
+      padding: 12px 15px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      line-height: 1.4;
+      text-align: center;
     }
 
     .auth-form {
@@ -1233,7 +1248,7 @@
 <body>
 
   <div class="announcement-bar">
-    Free shipping for purchases valuing over $35
+    🛠️ Site Under Maintenance — Browsing Mode Only
   </div>
 
   <div class="search-overlay" id="searchOverlay">
@@ -1287,6 +1302,8 @@
       <li><a onclick="openCategoryPage('eau-de-toilettes')">Eau de Toilettes</a></li>
       <li><a onclick="openCategoryPage('purely-botanicals')">Purely Botanicals ᯽</a></li>
       <li><a onclick="openCategoryPage('oil-rollers')">Perfume Oil Rollers</a></li>
+      <li><a onclick="openAuthView('signin')">Sign In</a></li>
+      <li><a onclick="openAuthView('signup')">Sign Up</a></li>
     </ul>
   </aside>  
 
@@ -1472,7 +1489,11 @@
       <h2 id="authTitle">Sign In</h2>
       <p id="authSubtitle">Welcome back to Fleural</p>
 
-      <button class="btn-google" onclick="event.preventDefault();">
+      <div class="auth-notice-msg" id="authNoticeMsg">
+        Please try again later, site is under maintenance!
+      </div>
+
+      <button class="btn-google" onclick="triggerAuthMaintenanceMsg(event)">
         <svg width="18" height="18" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
           <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -1486,7 +1507,7 @@
         <span>or</span>
       </div>
 
-      <form class="auth-form" onsubmit="event.preventDefault();">
+      <form class="auth-form" onsubmit="triggerAuthMaintenanceMsg(event)">
         <div class="auth-input-group">
           <label>Email Address</label>
           <input type="email" class="auth-input" placeholder="name@example.com" required />
@@ -1584,7 +1605,6 @@
 
         <h3>3. Third-Party Services & Payment Processing</h3>
         <p><strong>Checkout:</strong> Orders placed through Fleural are processed securely via third-party payment gateways. We do not store or save your full credit card details or bank credentials on our servers.</p>
-        <p><strong>Analytics & Hosting:</strong> We may use standard web hosting and analytics tools to understand website traffic. These services may collect basic user device data according to their own privacy policies.</p>
 
         <h3>4. Cookies and Web Storage</h3>
         <p>Fleural uses local browser storage and session cookies to remember preferences, keep track of items placed in your shopping cart, and preserve page state (such as search queries or active filters). You can choose to disable cookies through your individual browser options, though some features of the website (like the cart drawer) may not function properly as a result.</p>
@@ -1617,6 +1637,9 @@
     </div>
 
     <div class="cart-footer">
+      <div class="cart-notice-msg" id="cartNoticeMsg">
+        Please sign up or log in to make a purchase.
+      </div>
       <div class="shipping-progress-banner" id="shippingProgressBanner">
         Add $35.00 more to unlock Free Shipping!
       </div>
@@ -1625,7 +1648,7 @@
         <span id="cartSubtotal">$0.00</span>
       </div>
       <p class="shipping-note">Taxes and shipping calculated at checkout.</p>
-      <button class="pd-add-to-cart" style="margin-bottom:0;">Checkout</button>
+      <button class="pd-add-to-cart" style="margin-bottom:0;" onclick="handleCheckoutClick()">Checkout</button>
     </div>
   </aside>
 
@@ -1662,12 +1685,14 @@
       accountDropdown.classList.remove('active');
     });
 
-    /* Auth Page Controls */
+    /* Auth Page Controls & Maintenance Trigger */
     let isSignUp = false;
 
     function openAuthView(mode = 'signin') {
       closeSidebar();
       accountDropdown.classList.remove('active');
+
+      document.getElementById('authNoticeMsg').style.display = 'none';
 
       isSignUp = (mode === 'signup');
 
@@ -1703,6 +1728,18 @@
       } else {
         openAuthView('signup');
       }
+    }
+
+    function triggerAuthMaintenanceMsg(e) {
+      if (e) e.preventDefault();
+      const msg = document.getElementById('authNoticeMsg');
+      msg.style.display = 'block';
+    }
+
+    /* Checkout Handler */
+    function handleCheckoutClick() {
+      const cartNotice = document.getElementById('cartNoticeMsg');
+      cartNotice.style.display = 'block';
     }
 
     /* Privacy Policy Modal Control */
@@ -2028,6 +2065,7 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
         container.innerHTML = '<p class="empty-cart-msg">Your cart is currently empty.</p>';
         subtotalEl.textContent = '$0.00';
         shippingBanner.textContent = 'Add $35.00 more to unlock Free Shipping!';
+        document.getElementById('cartNoticeMsg').style.display = 'none';
         return;
       }
 
@@ -2053,7 +2091,7 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
 
       const freeShippingThreshold = 35.00;
       if (subtotal >= freeShippingThreshold) {
-        shippingBanner.textContent = "🎉 You've unlocked Free Shipping!";
+        shippingBanner.textContent = "You've unlocked Free Shipping!";
       } else {
         const remaining = (freeShippingThreshold - subtotal).toFixed(2);
         shippingBanner.textContent = `Add $${remaining} more to unlock Free Shipping!`;
