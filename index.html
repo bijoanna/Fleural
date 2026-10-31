@@ -749,7 +749,7 @@
       text-decoration: underline;
     }
 
-    /* Privacy Policy Modal Styling */
+    /* Policy Modals Base Styling */
     .policy-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -1248,7 +1248,7 @@
 <body>
 
   <div class="announcement-bar">
-    Site Under Maintenance
+    🛠️ Site Under Maintenance — Browsing Mode Only
   </div>
 
   <div class="search-overlay" id="searchOverlay">
@@ -1564,20 +1564,21 @@
     <div class="container">
       <ul class="footer-links">
         <li><a class="search-link" onclick="openSearch()">Search</a></li>
-        <li><a onclick="openPolicyModal()">Privacy Policy</a></li>
-        <li><a href="#">Shipping Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-        <li><a href="#">Contact Information</a></li>
+        <li><a onclick="openModal('policyOverlay')">Privacy Policy</a></li>
+        <li><a onclick="openModal('shippingOverlay')">Shipping Policy</a></li>
+        <li><a onclick="openModal('termsOverlay')">Terms of Service</a></li>
+        <li><a href="mailto:fleuralfragrances@gmail.com">Contact Information</a></li>
       </ul>
       <p>&copy; 2026 Fleural. All rights reserved.</p>
     </div>
   </footer>
 
+  <!-- 1. Privacy Policy Modal -->
   <div class="policy-overlay" id="policyOverlay">
     <div class="policy-modal">
       <div class="policy-header">
         <h2>Privacy Policy</h2>
-        <button class="close-btn" style="position:static;" onclick="closePolicyModal()">&times;</button>
+        <button class="close-btn" style="position:static;" onclick="closeModal('policyOverlay')">&times;</button>
       </div>
       <div class="policy-body">
         <p><em>Last Updated: August 8, 2026</em></p>
@@ -1620,7 +1621,76 @@
         <p>If you have any questions or concerns regarding this Privacy Policy, please contact us at <strong>fleuralfragrances@gmail.com</strong>.</p>
       </div>
       <div class="policy-footer">
-        <button class="btn" style="background-color: var(--text-color); color: #fff; border-color: var(--text-color); padding: 8px 24px;" onclick="closePolicyModal()">I Understand</button>
+        <button class="btn" style="background-color: var(--text-color); color: #fff; border-color: var(--text-color); padding: 8px 24px;" onclick="closeModal('policyOverlay')">I Understand</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Shipping Policy Modal -->
+  <div class="policy-overlay" id="shippingOverlay">
+    <div class="policy-modal">
+      <div class="policy-header">
+        <h2>Shipping Policy</h2>
+        <button class="close-btn" style="position:static;" onclick="closeModal('shippingOverlay')">&times;</button>
+      </div>
+      <div class="policy-body">
+        <p><em>Last Updated: August 8, 2026</em></p>
+        <br>
+        <p>Thank you for shopping at <strong>Fleural</strong>. Below you will find all details regarding our processing timelines, shipping methods, rates, and delivery expectations.</p>
+
+        <h3>1. Processing & Handcrafting Time</h3>
+        <p>Because each of our fragrance formulas is lovingly handcrafted in small batches, please allow <strong>2 to 4 business days</strong> for order preparation and packaging before shipment. Orders placed on weekends or official holidays will begin processing on the following business day.</p>
+
+        <h3>2. Shipping Rates & Delivery Estimates</h3>
+        <ul>
+          <li><strong>Standard Domestic Shipping:</strong> Flat rate of <strong>$7.99</strong>. Estimated delivery within 3 to 7 business days after processing.</li>
+          <li><strong>Free Shipping Promotion:</strong> Orders with a subtotal of <strong>$35.00 or more</strong> qualify for free standard shipping automatically at checkout.</li>
+        </ul>
+
+        <h3>3. Order Tracking</h3>
+        <p>Once your order has been packaged and handed over to the postal carrier, a shipping confirmation email containing your tracking number will be sent to the email address provided during checkout.</p>
+
+        <h3>4. Address Accuracy</h3>
+        <p>Please review your shipping address carefully prior to confirming your order. Fleural is not responsible for delayed, lost, or misrouted packages resulting from incorrect address information provided by the customer.</p>
+
+        <h3>5. Damaged or Missing Items</h3>
+        <p>If your package arrives damaged during transit, please contact us within 7 business days of delivery at <strong>fleuralfragrances@gmail.com</strong> with your order number and a clear photo of the damage so we can quickly issue a replacement or solution.</p>
+      </div>
+      <div class="policy-footer">
+        <button class="btn" style="background-color: var(--text-color); color: #fff; border-color: var(--text-color); padding: 8px 24px;" onclick="closeModal('shippingOverlay')">I Understand</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Terms of Service Modal -->
+  <div class="policy-overlay" id="termsOverlay">
+    <div class="policy-modal">
+      <div class="policy-header">
+        <h2>Terms of Service</h2>
+        <button class="close-btn" style="position:static;" onclick="closeModal('termsOverlay')">&times;</button>
+      </div>
+      <div class="policy-body">
+        <p><em>Last Updated: August 8, 2026</em></p>
+        <br>
+        <p>Welcome to <strong>Fleural</strong>. By accessing or using our website, purchasing products, or browsing our collection, you agree to be bound by the following terms and conditions.</p>
+
+        <h3>1. Product Usage & Patch Testing</h3>
+        <p>All Fleural products are intended strictly for <strong>external cosmetic use only</strong>. Keep out of reach of children and avoid contact with eyes or broken skin. Because individual skin chemistry varies, patch testing on a small area of skin is recommended before full application. Discontinue use immediately if irritation occurs.</p>
+
+        <h3>2. Intellectual Property</h3>
+        <p>All content displayed on this website—including but not limited to brand logos, product photography, scent descriptions, text graphics, and layout designs—is the exclusive property of Fleural and protected by intellectual property laws.</p>
+
+        <h3>3. Accuracy of Product Information</h3>
+        <p>We strive to display product details, scent notes, ingredients, and prices as accurately as possible. However, we reserve the right to correct minor typographical errors, update pricing, or adjust product availability at any time without prior notice.</p>
+
+        <h3>4. Order Cancellations & Refusals</h3>
+        <p>Fleural reserves the right to cancel or limit orders at our discretion in cases of suspected fraud, pricing errors, or unauthorized purchase attempts.</p>
+
+        <h3>5. Governing Law</h3>
+        <p>These terms are governed by and construed in accordance with standard consumer protection laws. If you have any inquiries regarding these terms, please reach out to <strong>fleuralfragrances@gmail.com</strong>.</p>
+      </div>
+      <div class="policy-footer">
+        <button class="btn" style="background-color: var(--text-color); color: #fff; border-color: var(--text-color); padding: 8px 24px;" onclick="closeModal('termsOverlay')">I Understand</button>
       </div>
     </div>
   </div>
@@ -1743,21 +1813,27 @@
       cartNotice.style.display = 'block';
     }
 
-    /* Privacy Policy Modal Control */
-    const policyOverlay = document.getElementById('policyOverlay');
-
-    function openPolicyModal() {
-      policyOverlay.classList.add('active');
-    }
-
-    function closePolicyModal() {
-      policyOverlay.classList.remove('active');
-    }
-
-    policyOverlay.addEventListener('click', function(e) {
-      if (e.target === policyOverlay) {
-        closePolicyModal();
+    /* Modal Controls for Privacy, Shipping, and Terms */
+    function openModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
       }
+    }
+
+    function closeModal(modalId) {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    document.querySelectorAll('.policy-overlay').forEach(overlay => {
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          overlay.classList.remove('active');
+        }
+      });
     });
 
     /* Cart Setup */
@@ -2092,7 +2168,7 @@ WARNING: Flammable. Keep away from heat, sparks, open flames, and hot surfaces. 
 
       const freeShippingThreshold = 35.00;
       if (subtotal >= freeShippingThreshold) {
-        shippingBanner.textContent = "You've unlocked Free Shipping!";
+        shippingBanner.textContent = "🎉 You've unlocked Free Shipping!";
       } else {
         const remaining = (freeShippingThreshold - subtotal).toFixed(2);
         shippingBanner.textContent = `Add $${remaining} more to unlock Free Shipping!`;
